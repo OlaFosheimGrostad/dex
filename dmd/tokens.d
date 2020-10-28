@@ -286,8 +286,12 @@ enum TOK : ubyte
     showCtfeContext,
 
     objcClassReference,
-    vectorArray,
+    vectorArray = 235,
 
+    dpp_define_assign,
+    dpp_left_tmpl_param,
+    dpp_right_tmpl_param,
+    dpp_sqrt,
     max_,
 }
 
@@ -709,6 +713,11 @@ extern (C++) struct Token
 
         TOK.objcClassReference: "class",
         TOK.vectorArray: "vectorarray",
+
+        TOK.dpp_define_assign: "≡",
+        TOK.dpp_left_tmpl_param : "‹",
+        TOK.dpp_right_tmpl_param: "›",
+        TOK.dpp_sqrt: "√"
     ];
 
     static assert(() {

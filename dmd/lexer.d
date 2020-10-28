@@ -520,7 +520,8 @@ class Lexer
                             const u = decodeUTF();
                             if (isUniAlpha(u))
                                 continue;
-                            error("char 0x%04x not allowed in identifier", u);
+                            if (!isUniOperator(u))
+                                error("char 0x%04x not allowed in identifier", u);
                             p = s;
                         }
                         break;
@@ -1059,6 +1060,34 @@ class Lexer
                     t.value = TOK.pound;
                     return;
                 }
+
+            case '\xe2':
+                if (*(p+1) == '\x9f' && *(p+2) == '\xb5') { 
+                    t.value = TOK.assign; // ⟵
+                } else if (*(p+1) == '\x89') {
+                    if (*(p+2) == '\xa0') {
+                        t.value = TOK.notEqual; // ≠
+                    } else if (*(p+2) == '\xa1') {
+                        //printf("DEBUG TOK.aliasAssign\n");
+                        t.value = TOK.dpp_define_assign; // ≡
+                    } else if (*(p+2) == '\xa4') {
+                        t.value = TOK.lessOrEqual; // ≤
+                    } else if (*(p+2) == '\xa5') {
+                        t.value = TOK.greaterOrEqual; // ≥
+                    }
+                } else if (*(p+1) == '\x88') {
+                    if (*(p+2) == '\x9a') {
+                        t.value = TOK.dpp_sqrt; // √
+                    }
+                } else if (*(p+1) == '\x80') {
+                    if (*(p+2) == '\xb9') {
+                        t.value = TOK.dpp_left_tmpl_param; // ‹
+                    } else if (*(p+2) == '\xba') {
+                        t.value = TOK.dpp_right_tmpl_param; // ›
+                    }
+                }
+                p += 3;
+                return;
             default:
                 {
                     dchar c = *p;
@@ -1115,9 +1144,11 @@ class Lexer
             //tk.print();
             switch (tk.value)
             {
+            case TOK.dpp_left_tmpl_param: //TODO: detect more syntax errors by separating
             case TOK.leftParentheses:
                 parens++;
                 continue;
+            case TOK.dpp_right_tmpl_param:
             case TOK.rightParentheses:
                 --parens;
                 if (parens)
@@ -2658,6 +2689,22 @@ private struct TimeStampInfo
         sprintf(&date[0], "%.6s %.4s", p + 4, p + 20);
         sprintf(&time[0], "%.8s", p + 11);
         sprintf(&timestamp[0], "%.24s", p);
+    }
+}
+
+bool isUniOperator(uint u) {
+    switch(u){
+        case '‹':
+        case '›':
+        case '⟵':
+        case '≡':
+        case '≤':
+        case '≥':
+        case '≠':
+        case '√':
+            return true;
+        default:
+            return false;
     }
 }
 

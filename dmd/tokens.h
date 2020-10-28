@@ -188,6 +188,11 @@ enum
         TOKobjc_class_reference,
         TOKvectorarray,
 
+        TOKdpp_define_assign,
+        TOKdpp_left_tmpl_param,
+        TOKdpp_right_tmpl_param,
+        TOKdpp_sqrt,
+        
         TOKMAX
 };
 
