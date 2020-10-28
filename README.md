@@ -19,8 +19,8 @@ Dex | D
 `while … {…}`  | `while (…) {…}`
 `if … {…}`  | `if (…) {…}`
 `symbol‹…›` | `symbol!(…)`
-`x ⟵ type expr` | `x = type expr`
-`symbol ≡ expr` | `alias symbol = expr`
+`x ⟵ expr` | `x = expr`
+`symbol ≡ type` | `alias symbol = type`
 `x ≤ y` | `x <= y`
 `x ≥ y` | `x >= y`
 `x ≠ y` | `x != y`
