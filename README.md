@@ -10,23 +10,16 @@ Building
 Requires CMake, Clang, LLVM 11 and a D compiler.
 
 
-Syntax modifications
-====================
-
-`for … {…}`  => `for (…) {…}`
-
-`while … {…}`  => `for (…) {…}`
-
-`if … {…}`  => `for (…) {…}`
-
-`symbol‹…›` => `symbol!(…)`
-
-`x ⟵ expr` => `x = expr`
-
-`symbol ≡ expr` => `alias symbol = expr`
-
-`x ≤ y` => `x <= y`
-
-`x ≥ y` => `x >= y`
-
-`x ≠ y` => `x != y`
+Syntax additions
+================
+Dex | D
+---|---
+`for … {…}`  | `for (…) {…}
+`while … {…}`  | `for (…) {…}`
+`if … {…}`  | `for (…) {…}`
+`symbol‹…›` | `symbol!(…)`
+`x ⟵ expr` | `x = expr`
+`symbol ≡ expr` | `alias symbol = expr`
+`x ≤ y` | `x <= y`
+`x ≥ y` | `x >= y`
+`x ≠ y` | `x != y`
