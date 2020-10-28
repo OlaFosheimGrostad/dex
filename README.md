@@ -14,7 +14,7 @@ Syntax additions
 ================
 Dex | D
 ---|---
-`for … {…}`  | `for (…) {…}
+`for … {…}`  | `for (…) {…}`
 `while … {…}`  | `for (…) {…}`
 `if … {…}`  | `for (…) {…}`
 `symbol‹…›` | `symbol!(…)`
