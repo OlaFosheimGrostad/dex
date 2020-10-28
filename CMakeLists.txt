@@ -110,6 +110,7 @@ include(GetLinuxDistribution)
 #
 
 # Version information
+set(DEX_VERSION "0.0.1")
 set(LDC_VERSION "1.24.0") # May be overridden by git hash tag
 set(DMDFE_MAJOR_VERSION   2)
 set(DMDFE_MINOR_VERSION   0)

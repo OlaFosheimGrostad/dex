@@ -11,6 +11,7 @@
 
 namespace ldc {
 
+extern const char *const dex_version;
 extern const char *const ldc_version;
 extern const char *const dmd_version;
 extern const char *const llvm_version;

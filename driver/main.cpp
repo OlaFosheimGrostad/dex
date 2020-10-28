@@ -97,7 +97,7 @@ namespace {
 
 // This function exits the program.
 void printVersion(llvm::raw_ostream &OS) {
-  OS << "LDC - the LLVM D compiler (" << ldc::ldc_version << "):\n";
+  OS << "Dex - an experimental compiler (" << ldc::dex_version << "):\n";
   OS << "  based on DMD " << ldc::dmd_version << " and LLVM "
      << ldc::llvm_version << "\n";
   OS << "  built with " << ldc::built_with_Dcompiler_version << "\n";
