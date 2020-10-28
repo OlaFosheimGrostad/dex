@@ -20,7 +20,7 @@ Additions
 ---------
 
 Optional Dex | Regular D
----|---
+-------------|----------
 `for … {…}`  | `for (…) {…}`
 `foreach … {…}`  | `foreach (…) {…}`
 `while … {…}`  | `while (…) {…}`
@@ -39,6 +39,6 @@ TODO (mostly implemented, but not commited)
 
 For files ending in .dex some of the regular D alternatives are not available and you also get this:
 
-Strict Dex |  D
------------|----
+Strict Dex | Regular D
+-----------|----------
 `x = y` | `x == y`
