@@ -15,8 +15,9 @@ Syntax additions
 Dex | D
 ---|---
 `for … {…}`  | `for (…) {…}`
-`while … {…}`  | `for (…) {…}`
-`if … {…}`  | `for (…) {…}`
+`foreach … {…}`  | `foreach (…) {…}`
+`while … {…}`  | `while (…) {…}`
+`if … {…}`  | `if (…) {…}`
 `symbol‹…›` | `symbol!(…)`
 `x ⟵ expr` | `x = expr`
 `symbol ≡ expr` | `alias symbol = expr`
