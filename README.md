@@ -1,5 +1,5 @@
-Dexperiment - a d compiler with extensions
-==========================================
+Dex - an experimental D compiler with extensions
+================================================
 
 Version 0.0.1 gamma. Work in progress.
 
