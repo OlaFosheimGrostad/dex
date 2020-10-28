@@ -37,7 +37,7 @@ Strict Dex Syntax
 
 TODO (implemented, but not commited)
 
-For files ending in .dex the regular D alternatives are not available and you also get this:
+For files ending in .dex some of the regular D alternatives are not available and you also get this:
 
 Strict Dex |  D
 -----------|----
