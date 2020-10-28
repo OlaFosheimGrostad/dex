@@ -5,7 +5,7 @@ Dex is released under the "three-clause BSD" Dex license reproduced below, with
 the following exceptions:
 
 Compiler (bin/ in binary packages):
- - Dex uses the DMD frontend (ddmd/* in source code distributions),
+ - Dex uses a modified version of the DMD frontend (ddmd/* in source code distributions),
    which was originally written by Walter Bright and is released under the
    Boost Software License - Version 1.0. LDMD (driver/ldmd.cpp) and the RTTI
    handling code (gen/typinf.cpp) are also partly derived from DMD.
