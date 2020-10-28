@@ -10,7 +10,7 @@ Building
 Requires CMake, Clang, LLVM 11 and a D compiler.
 
 
-Dex D Syntax
+Optional Dex Syntax
 ============
 
 Dex accept regular .d files with regular D syntax and optional additional syntax.
