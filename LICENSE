@@ -1,22 +1,22 @@
 Overview
 ========
 
-LDC is released under the "three-clause BSD" LDC license reproduced below, with
+Dex is released under the "three-clause BSD" Dex license reproduced below, with
 the following exceptions:
 
 Compiler (bin/ in binary packages):
- - LDC uses the DMD frontend (ddmd/* in source code distributions),
+ - Dex uses the DMD frontend (ddmd/* in source code distributions),
    which was originally written by Walter Bright and is released under the
    Boost Software License - Version 1.0. LDMD (driver/ldmd.cpp) and the RTTI
    handling code (gen/typinf.cpp) are also partly derived from DMD.
 
- - LDC incorporates code (gen/asmstmt.cpp and gen/asm-*.h) originally written
+ - Dex incorporates code (gen/asmstmt.cpp and gen/asm-*.h) originally written
    by David Friedman for GDC and released under the Artistic license or the
    GPL version 2 or later.
 
- - The LDC project makes use of the LLVM framework, which is governed by the
+ - Dex makes use of the LLVM framework, which is governed by the
    Apache License v2.0 with LLVM exceptions (for LLVM 9+) or the University
-   of Illinois Open Source License (LLVM 8 and earlier). A few LDC source
+   of Illinois Open Source License (LLVM 8 and earlier). A few Dex source
    files directly incorporate code derived from LLVM, see the file headers
    for details.
 
