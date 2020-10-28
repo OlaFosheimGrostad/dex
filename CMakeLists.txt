@@ -897,5 +897,5 @@ endif()
 # Packaging
 #
 
-include (CMakeCPack.cmake)
-include (CPack)
+#include (CMakeCPack.cmake)
+#include (CPack)
