@@ -50,6 +50,9 @@ Full license texts
 
 -- Dex license -----------------------------------------------------------------
 
+Dex is a derived work of LDC, see "LDC license" below.
+The differences from the original are covered by the following license.
+
 Copyright (c) 2020 Ola Fosheim Grøstad.
 All rights reserved.
 
@@ -75,6 +78,15 @@ LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON
 ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
 (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+
+-- Dex frontend license -----------------------------------------------------------------
+
+The Dex frontend is a derived work of DMD, see "DMD license" below.
+The differences from the original are covered by the following license.
+
+Copyright (c) 2020 Ola Fosheim Grøstad.
+
+The Dex frontend is released under the terms of the Boost Software License - Version 1.0.
 
 -- LDC license -----------------------------------------------------------------
 
@@ -103,16 +115,6 @@ LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON
 ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
 (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
-
-
--- Dex frontend license -----------------------------------------------------------------
-
-The Dex frontend is a derived work of DMD, see license below.
-The difference from the original are covered by the following license.
-
-Copyright (c) 2020 Ola Fosheim Grøstad.
-
-The Dex frontend is released under the terms of the Boost Software License - Version 1.0.
 
 -- DMD license -----------------------------------------------------------------
 
