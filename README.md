@@ -13,7 +13,7 @@ Requires CMake, Clang, LLVM 11 and a D compiler.
 Dex Syntax
 ============
 
-Dex accept regular .d files with regular D syntax and optional additional syntax.
+Dex accept regular `.d` files with regular D syntax and optional additional syntax.
 
 
 Additions
@@ -37,7 +37,7 @@ Strict Dex Syntax
 
 TODO (mostly implemented, but not commited)
 
-For files ending in .dex some of the regular D alternatives are not available and you also get this:
+For files ending in `.dex` some of the regular D alternatives are not available and you also get this:
 
 Strict Dex | Regular D
 -----------|----------
