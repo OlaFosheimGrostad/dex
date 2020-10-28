@@ -10,9 +10,16 @@ Building
 Requires CMake, Clang, LLVM 11 and a D compiler.
 
 
-Syntax additions
-================
-Dex | D
+Dex D Syntax
+============
+
+Dex accept regular .d files with regular D syntax and optional additional syntax.
+
+
+Additions
+---------
+
+Dex D | D
 ---|---
 `for … {…}`  | `for (…) {…}`
 `foreach … {…}`  | `foreach (…) {…}`
@@ -24,3 +31,14 @@ Dex | D
 `x ≤ y` | `x <= y`
 `x ≥ y` | `x >= y`
 `x ≠ y` | `x != y`
+
+Strict Dex Syntax
+=================
+
+TODO (implemented, but not commited)
+
+For files ending in .dex the regular D alternatives are not available and you also get this:
+
+Strict Dex |  D
+-----------|----
+`x = y` | `x == y`
