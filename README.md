@@ -10,7 +10,7 @@ Building
 Requires CMake, Clang, LLVM 11 and a D compiler.
 
 
-Optional Dex Syntax
+Dex Syntax
 ============
 
 Dex accept regular .d files with regular D syntax and optional additional syntax.
@@ -33,7 +33,7 @@ Optional Dex | Regular D
 `x ≠ y` | `x != y`
 
 Strict Dex Syntax
-=================
+-----------------
 
 TODO (implemented, but not commited)
 
