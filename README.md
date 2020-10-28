@@ -19,7 +19,7 @@ Dex accept regular .d files with regular D syntax and optional additional syntax
 Additions
 ---------
 
-Dex D | Regular D
+Optional Dex | Regular D
 ---|---
 `for … {…}`  | `for (…) {…}`
 `foreach … {…}`  | `foreach (…) {…}`
