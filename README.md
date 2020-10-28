@@ -35,7 +35,7 @@ Optional Dex | Regular D
 Strict Dex Syntax
 -----------------
 
-TODO (implemented, but not commited)
+TODO (mostly implemented, but not commited)
 
 For files ending in .dex some of the regular D alternatives are not available and you also get this:
 
