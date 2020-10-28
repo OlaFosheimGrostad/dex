@@ -19,7 +19,7 @@ Dex | D
 `while … {…}`  | `while (…) {…}`
 `if … {…}`  | `if (…) {…}`
 `symbol‹…›` | `symbol!(…)`
-`x ⟵ expr` | `x = expr`
+`x ⟵ type expr` | `x = type expr`
 `symbol ≡ expr` | `alias symbol = expr`
 `x ≤ y` | `x <= y`
 `x ≥ y` | `x >= y`
