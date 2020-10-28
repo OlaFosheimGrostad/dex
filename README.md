@@ -10,8 +10,8 @@ Building
 Requires CMake, Clang, LLVM 11 and a D compiler.
 
 
-Syntax modifications (
-==========================================
+Syntax modifications
+====================
 
 `for … {…}`  => `for (…) {…}`
 
