@@ -64,7 +64,7 @@ Optional Dex | Regular D
 'a ⊇ b' | opBinary!"⊇"
 'a ⊈ b' | opBinary!"⊈"
 'a ⊉ b' | opBinary!"⊉"
-'a ∈ b' | opBinary!"in"
+'a ∈ b' | opBinary!"∈"
 'a ∉ b' | opBinary!"∉"
 
 Other binary operators to consider:
@@ -89,7 +89,6 @@ Strict Dex | Regular D
 `not a`  | `!a`
 `a == b` | `a is b`
 `a ≠≠ b` | `a !is b`
-`a ∈ b` | `a in b`
 
 
 
