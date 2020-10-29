@@ -60,6 +60,7 @@ Strict Dex | Regular D
 `not a`  | `!a`
 `a == b` | `a is b`
 `a ≠≠ b` | `a !is b`
+`a·b` | `a*b`
 
 
 
