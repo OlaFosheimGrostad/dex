@@ -44,7 +44,6 @@ Optional Dex | Regular D
 `obj <: A`   | typid strict subclass
 `∂x` | illegal identifier
 `∞` | illegal identifier
-`-∞` | illegal identifier
 `∅` | illegal identifier
 
 TODO: New Operators
