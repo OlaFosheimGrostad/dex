@@ -66,9 +66,10 @@ Optional Dex | Regular D
 'a ⊉ b' | opBinary!"⊉"
 'a ∈ b' | opBinary!"∈"
 'a ∉ b' | opBinary!"∉"
+`⊦e| `assert(e)`
 
 Other binary operators to consider:
-`✕ ⊕	⊖	⊗	⊘	⊙	⊚	⊛ ∧	∨`
+`✕ ⊕	⊖	⊗	⊘	⊙	⊚	⊛ ∧	∨ ⊻`
 , and unary: `¬` .
 
 
