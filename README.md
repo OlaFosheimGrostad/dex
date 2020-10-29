@@ -42,6 +42,36 @@ Optional Dex | Regular D
 `obj ≤: A`   | typeid subclass
 `obj :=: A`  | typeid equality
 `obj <: A`   | typid strict subclass
+`∂x` | illegal identifier
+`∞` | illegal identifier
+`-∞` | illegal identifier
+`∅` | illegal identifier
+
+TODO: New Operators
+------------------
+Optional Dex | Regular D
+-------------|----------
+'√e' | opUnary!"√"
+'a · b' | opBinary!"·"
+'a ≈ b' | opBinary!"≈"
+'a ≉ b' | opBinary!"≉"
+'a ∩ b' | opBinary!"∩"
+'a ∪ b' | opBinary!"∪"
+'a ⊂ b' | opBinary!"⊂"
+'a ⊃ b' | opBinary!"⊃"
+'a ⊄ b' | opBinary!"⊄"
+'a ⊅ b' | opBinary!"⊅"
+'a ⊆ b' | opBinary!"⊆"
+'a ⊇ b' | opBinary!"⊇"
+'a ⊈ b' | opBinary!"⊈"
+'a ⊉ b' | opBinary!"⊉"
+'a ∈ b' | opBinary!"in"
+'a ∉ b' | opBinary!"∉"
+
+Other binary operators to consider:
+`✕ ⊕	⊖	⊗	⊘	⊙	⊚	⊛ ∧	∨`
+, and unary: `¬` .
+
 
 
 
@@ -60,7 +90,7 @@ Strict Dex | Regular D
 `not a`  | `!a`
 `a == b` | `a is b`
 `a ≠≠ b` | `a !is b`
-`a·b` | `a*b`
+`a ∈ b` | `a in b`
 
 
 
