@@ -39,12 +39,9 @@ Optional Dex | Regular D
 `B ≤: A`   | `is(B:A)`
 `B :=: A`  | `is(B==A)`
 `B <: A`   | `is(B:A) && !is(B==A)`
-`obj ≤: A`   | `typeid(A).isBaseOf(typeid(obj))`
-`obj :=: A`  | `typeid(obj) == typeid(A)`
-`obj <: A`   | `typeid(obj) != typeid(A) && typeid(A).isBaseOf(typeid(obj))`
-`obj ≤: obj2`   | `typeid(obj2).isBaseOf(typeid(obj))`
-`obj :=: obj2`  | `typeid(obj) == typeid(obj2)`
-`obj <: obj2`   | `typeid(obj) != typeid(obj2) && typeid(obj2).isBaseOf(typeid(obj))`
+`b ≤: a`   | `typeid(A).isBaseOf(typeid(obj))` , b and a can be type/object
+`b :=: a`  | `typeid(obj) == typeid(A)` , b and a can be type/object
+`b <: a`   | `typeid(obj) != typeid(A) && typeid(A).isBaseOf(typeid(obj))` , where b and a can be type/object
 `∂x` | illegal identifier
 `∞` | illegal identifier
 `∅` | illegal identifier
