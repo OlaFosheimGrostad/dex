@@ -54,6 +54,7 @@ For files ending in `.dex` some of the regular D alternatives are not available 
 Strict Dex | Regular D
 -----------|----------
 `x = y`  | `x == y`
+`«if»`   | identifier "if"
 `a and b`| `a && b`
 `a or b` | `a \|\| b`
 `not a`  | `!a`
