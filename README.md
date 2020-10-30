@@ -110,6 +110,15 @@ TODO: Semantics
 ---------------
 Overflow on unigned integers is undefined behaviour.
 
+Strict Dex | Semantics
+-----------|----------
+`a (+) b` | modular a + b for unsigned int
+`a (-) b` | modular a - b for unsigned int
+`a (*) b` | modular a * b for unsigned int
+`a [+] b` | saturate a + b
+`a [-] b` | saturate a - b
+
+
 TODO: Syntax
 ----------------------
 
@@ -122,10 +131,5 @@ Strict Dex | Regular D
 `not a`  | `!a`
 `a == b` | `a is b`
 `a ≠≠ b` | `a !is b`
-`a (+) b` | modular a + b for unsigned int
-`a (-) b` | modular a - b for unsigned int
-`a (*) b` | modular a * b for unsigned int
-`a [+] b` | saturate a + b
-`a [-] b` | saturate a - b
 `e1 if e else e2`|`e ? e1 : e2`
 `if e?.a {}` | `if (e !is null && e.a) {}`
