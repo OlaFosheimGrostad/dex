@@ -119,7 +119,9 @@ Strict Dex | Semantics
 `a (*) b` | modular a * b for unsigned int
 `a [+] b` | saturate a + b
 `a [-] b` | saturate a - b
+`ASSUME(e)` | the compiler will assume e to always hold true
 
+Note: `ASSUME` will run as an assert in sanitization builds, and will be removed in non-optimizing builds.
 
 TODO: Syntax
 ----------------------
