@@ -31,6 +31,8 @@ Optional Dex | Regular D
 `x ≤ y` | `x <= y`
 `x ≥ y` | `x >= y`
 `x ≠ y` | `x != y`
+`§isIntegral(e)` | `__trait(isIntegral,e)` etc…
+
 
 TODO: Semantic Changes
 ----------------------
