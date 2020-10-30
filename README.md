@@ -108,6 +108,8 @@ Builtin associative arrays.
 
 Auto-decode.
 
+Alias this. Will be replaced with single inheritance.
+
 D syntax that is not available in Dex mode or has changed meaning
 -----------------------------------------------------------------
 `=`, `==` , `!=`,  `!…`, `…?…:…`, `&&`, `||`, `<=`, `>=`
