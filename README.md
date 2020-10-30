@@ -35,12 +35,14 @@ Optional Dex | Regular D
 
 TODO: Semantic Changes
 ----------------------
-Overflow on signed integers are overflow.
-Trace overflow in sanitization builds.
+Overflow on signed integers is undefined behaviour. 
+Overflow on the right operand of shift operations is undefined behaviour. 
+Detected at runtime in sanitization builds.
 
-Class decl available as structs.
+Class definition available as struct for low level non-portable programming.
 
 Garbage collector does not call destructors.
+
 All Object types have strong and weak reference counters that are used to enable deterministic destruction. 
 Trace dangling pointers to interiors of Object subclasses after destruction in sanitization builds.
 
@@ -108,7 +110,7 @@ D syntax that is not available in Dex mode or has changed meaning
 
 TODO: Semantics
 ---------------
-Overflow on unigned integers is undefined behaviour.
+Overflow on unigned integers is undefined behaviour, except for shift left. Detected at runtime in sanitization builds.
 
 Strict Dex | Semantics
 -----------|----------
