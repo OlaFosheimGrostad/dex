@@ -118,6 +118,9 @@ TODO: Semantics
 ---------------
 Overflow on unigned integers is undefined behaviour, except for shift left. Detected at runtime in sanitization builds.
 
+A new `proxy aggregate` for writing smart pointers. In order to access the internals of the proxy object it has to be dereferenced using a deproxy-operator. All other operations work on the referenced object.
+
+
 Strict Dex | Semantics
 -----------|----------
 `a (+) b` | modular a + b for unsigned integers
