@@ -16,8 +16,8 @@ Dex Syntax
 Dex accept regular `.d` files with regular D syntax and optional additional syntax.
 
 
-Additions
----------
+Syntax Sugar Additions
+----------------------
 
 Optional Dex | Regular D
 -------------|----------
@@ -31,6 +31,17 @@ Optional Dex | Regular D
 `x ≤ y` | `x <= y`
 `x ≥ y` | `x >= y`
 `x ≠ y` | `x != y`
+
+TODO: Semantic Changes
+----------------------
+Overflow on signed integers are overflow.
+Trace overflow in sanitization builds.
+
+Class decl available as structs.
+
+Garbage collector does not call destructors.
+All Object types have strong and weak reference counters that are used to enable deterministic destruction. 
+Trace dangling pointers to interiors of Object subclasses after destruction in sanitization builds.
 
 TODO:Additions
 --------------
@@ -66,20 +77,23 @@ Optional Dex | Regular D
 'a ⊉ b' | opBinary!"⊉"
 'a ∈ b' | opBinary!"∈"
 'a ∉ b' | opBinary!"∉"
-`⊦e| `assert(e)`
+`⊦e| `  | `assert(e)`
 
 Other binary operators to consider:
 `✕ ⊕	⊖	⊗	⊘	⊙	⊚	⊛ ∧	∨ ⊻`
 , and unary: `¬` .
 
 
+Strict Dex mode
+===============
+Applies to files ending with `.dex`.
 
+TODO: Semantics
+---------------
+Overflow on unigned integers is undefined behaviour.
 
-
-TODO:Strict Dex Syntax
------------------
-
-For files ending in `.dex` some of the regular D alternatives are not available and you also get this:
+TODO: Syntax
+----------------------
 
 Strict Dex | Regular D
 -----------|----------
@@ -90,8 +104,8 @@ Strict Dex | Regular D
 `not a`  | `!a`
 `a == b` | `a is b`
 `a ≠≠ b` | `a !is b`
-
-
-
-
-
+`a (+) b` | modular a + b for unsigned int
+`a (-) b` | modular a - b for unsigned int
+`a (*) b` | modular a * b for unsigned int
+`a [+] b` | saturate a + b
+`a [-] b` | saturate a - b
