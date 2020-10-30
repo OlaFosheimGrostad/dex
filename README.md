@@ -57,7 +57,12 @@ Optional Dex | Regular D
 `∂x` | illegal identifier
 `∞` | illegal identifier
 `∅` | illegal identifier
-`§isIntegral(e)` | `__trait(isIntegral,e)` etc…
+`§int‹T›` | `__trait(isIntegral,T)`
+`§fp‹T›` | `__trait(isFloating,T)`
+`§scalar‹T›` | `__trait(isScalar,T)`
+`§unsigned‹T›` | `__trait(isUnsigned,T)`
+`§array‹T›` | `__trait(isStaticArray,T)`
+
 
 TODO: New Operators
 ------------------
@@ -90,6 +95,17 @@ Strict Dex mode
 ===============
 Applies to files ending with `.dex`.
 
+D constructs that are not available in Dex mode
+-----------------------------------------------
+
+Builtin associative arrays.
+
+Auto-decode.
+
+D syntax that is not available in Dex mode or has changed meaning
+-----------------------------------------------------------------
+`=`, `==` , `!=`,  `!…`, `…?…:…`, `&&`, `||`
+
 TODO: Semantics
 ---------------
 Overflow on unigned integers is undefined behaviour.
@@ -111,3 +127,5 @@ Strict Dex | Regular D
 `a (*) b` | modular a * b for unsigned int
 `a [+] b` | saturate a + b
 `a [-] b` | saturate a - b
+`e1 if e else e2`|`e ? e1 : e2`
+`if e?.a {}` | `if (e !is null && e.a) {}`
