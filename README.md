@@ -31,7 +31,6 @@ Optional Dex | Regular D
 `x ≤ y` | `x <= y`
 `x ≥ y` | `x >= y`
 `x ≠ y` | `x != y`
-`§isIntegral(e)` | `__trait(isIntegral,e)` etc…
 
 
 TODO: Semantic Changes
@@ -58,6 +57,7 @@ Optional Dex | Regular D
 `∂x` | illegal identifier
 `∞` | illegal identifier
 `∅` | illegal identifier
+`§isIntegral(e)` | `__trait(isIntegral,e)` etc…
 
 TODO: New Operators
 ------------------
