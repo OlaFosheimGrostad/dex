@@ -118,9 +118,9 @@ Overflow on unigned integers is undefined behaviour, except for shift left. Dete
 
 Strict Dex | Semantics
 -----------|----------
-`a (+) b` | modular a + b for unsigned int
-`a (-) b` | modular a - b for unsigned int
-`a (*) b` | modular a * b for unsigned int
+`a (+) b` | modular a + b for unsigned integers
+`a (-) b` | modular a - b for unsigned integers
+`a (*) b` | modular a * b for unsigned integers
 `a [+] b` | saturate a + b
 `a [-] b` | saturate a - b
 `§ASSUME(e)` | the compiler will assume e to always hold true
