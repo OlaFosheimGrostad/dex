@@ -46,10 +46,14 @@ Garbage collector does not call destructors.
 All Object types have strong and weak reference counters that are used to enable deterministic destruction. 
 Trace dangling pointers to interiors of Object subclasses after destruction in sanitization builds.
 
-TODO:Additions
+TODO:Syntax Sugar
 --------------
 Optional Dex | Regular D
 -------------|----------
+`a < b < c`   | `a < b && b < c`
+`a < b ≤ c`   | `a < b && b <= c`
+`a ≤ b < c`   | `a <= b && b < c`
+`a ≤ b ≤ c`   | `a <= b && b <= c`
 `B ≤: A`   | `is(B:A)`
 `B :=: A`  | `is(B==A)`
 `B <: A`   | `is(B:A) && !is(B==A)`
