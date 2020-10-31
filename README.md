@@ -75,8 +75,6 @@ Optional Dex | Regular D
 `§scalar‹T›` | `__trait(isScalar,T)`
 `§unsigned‹T›` | `__trait(isUnsigned,T)`
 `§array‹T›` | `__trait(isStaticArray,T)`
-`#a`| `a.length`
-`a[#-1]` | `a[$-1]`
 `if e?.a {}` | `if (e !is null && e.a) {}`
 `obj?.a?.b ⟵ e;` | `if (obj !is null && obj.a !is null) obj.a.b = e;`
 `obj?.a?.f(…);` | `if (obj !is null && obj.a !is null) obj.a.f(…);`
@@ -185,6 +183,9 @@ Strict Dex | Regular D
 `a == b` | `a is b`
 `a ≠≠ b` | `a !is b`
 `e1 if e else e2`|`e ? e1 : e2`
+`#a`| `a.length`
+`a[#-1]` | `a[$-1]`
+
 
 ## TODO: Sequence to Comma Separated List
 
