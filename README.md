@@ -62,7 +62,6 @@ Optional Dex | Regular D
 `b <: a`   | `typeid(a) != typeid(b) && typeid(a).isBaseOf(typeid(b))` , a and b can be type/object
 `¬e`| `~e`
 `a ∧ b`| `a & b`
-`a ∨ b`| `a \| b`
 `a ⊻ b`| `a ^ b`
 `a ⤺ b`| `a << b`
 `a ⤻ b`| `a << b`
@@ -70,7 +69,7 @@ Optional Dex | Regular D
 `a ⤻? b`| `b&~0x1f ? (a<0 ? -1 : 0) : a >> b`
 `a ⟲ b`| bitwise rotate left
 `a ⟳ b`| bitwise rotate right
-`a ∨⤺ b` | `a\|(1<<b)`
+`a |⤺ b` | `a\|(1<<b)`
 `a ∧⤺ b` | `a&~(1<<b)`
 `a ⊻⤺ b` | `a^(1<<b)`
 `∂x` | illegal identifier
@@ -120,7 +119,7 @@ Dex          | Regular D
 `(+ a,b,c,…)` | `((a+b)+c)+…`
 `(* a,b,c,…)` | `((a*b)*c)*…`
 `(∧ a,b,c,…)`| `((a&b)&c)&…`
-`(∨ a,b,c,…)`| `((a\|b)\|c)\|…`
+`(| a,b,c,…)`| `((a\|b)\|c)\|…`
 `(⊻ a,b,c,…)`| `((a^b)^c)^…`
 `(= a,b,c,…)` | `(a==b)&&(b==c)&&…`
 `(≠ a,b,c,…)` | `(a!=b)&&(b!=c)&&…`
@@ -162,7 +161,7 @@ Alias this. Will be replaced with single inheritance.
 
 D syntax that is not available in Dex mode or has changed meaning
 -----------------------------------------------------------------
-`=`, `==` , `!=`,  `!…`, `…?…:…`, `&&`, `||`, `<=`, `>=`
+`=`, `==` , `!=`,  `!…`, `…?…:…`, `&&`, `||`, `<=`, `>=`, `…&…`
 
 TODO: Semantics
 ---------------
