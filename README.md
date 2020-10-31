@@ -11,3 +11,8 @@ Dex is based on [LDC](https://wiki.dlang.org/LDC).
 ## Building
 
 Requires CMake, Clang, LLVM 11 and a D compiler.
+
+## TODO: Extended-D Code Examples
+
+```
+```
