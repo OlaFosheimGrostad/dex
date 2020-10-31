@@ -106,6 +106,9 @@ Optional Dex | Regular D
 `(? a ≤ b,c,…)` | `(a≤b)\|\|(a≤c)\|\|…`
 `(? a > b,c,…)` | `(a>b)\|\|(a>c)\|\|…`
 `(? a_≥ b,c,…)` | `(a≥b)\|\|(a≥c)\|\|…`
+`a (+) b` | modular a + b for unsigned integers
+`a (-) b` | modular a - b for unsigned integers
+`a (*) b` | modular a * b for unsigned integers
 
 Note: Shift operations above are given for 32 bit integers, but also applies to other bit sizes.
 
@@ -163,13 +166,6 @@ Alias this. Will be replaced with single inheritance.
 Overflow on unigned integers is undefined behaviour, except for shift left. Detected at runtime in sanitization builds.
 
 A new `proxy aggregate` for writing smart pointers. In order to access the internals of the proxy object it has to be dereferenced using a deproxy-operator. All other operations work on the referenced object.
-
-
-Strict Dex | Semantics
------------|----------
-`a (+) b` | modular a + b for unsigned integers
-`a (-) b` | modular a - b for unsigned integers
-`a (*) b` | modular a * b for unsigned integers
 
 ## TODO: Syntax
 
