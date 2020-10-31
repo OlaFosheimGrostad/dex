@@ -25,6 +25,7 @@ A new `proxy aggregate` for writing smart pointers. In order to access the inter
 
 Strict Dex | Regular D
 -----------|----------
+`int x;` | `x:int;`
 `x = y`  | `x == y`
 `«if»`   | identifier "if"
 `a and b`| `a && b`
