@@ -92,6 +92,7 @@ Optional Dex | Regular D
 `§scalar‹T›` | `__trait(isScalar,T)`
 `§unsigned‹T›` | `__trait(isUnsigned,T)`
 `§array‹T›` | `__trait(isStaticArray,T)`
+`#a`| `a.length`
 `a[#-1]` | `a[$-1]`
 `…,f(a[$$])...` | `…,f(a[0]), f(a[1]), …` until out of index
 
