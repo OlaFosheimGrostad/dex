@@ -2,7 +2,7 @@
 
 ## Syntax Sugar Additions
 
-Optional Dex | Regular D
+New Syntax | Regular D
 -------------|----------
 `for … {…}`  | `for (…) {…}`
 `foreach … {…}`  | `foreach (…) {…}`
@@ -29,7 +29,7 @@ Garbage collector does not call destructors.
 All Object types have strong and weak reference counters that are used to enable deterministic destruction. 
 Trace dangling pointers to interiors of Object subclasses after destruction in sanitization builds.
 
-Optional Dex | Semantics
+New Syntax | Semantics
 -------------|----------
 `a [+] b` | saturate a + b
 `a [-] b` | saturate a - b
@@ -41,7 +41,7 @@ Note: `a [+] b` saturates to [0.0,1.0> for floating point.
 
 ## TODO: Syntax Sugar Additions
 
-Optional Dex | Regular D
+New Syntax | Regular D
 -------------|----------
 `a < b < c`   | `a < b && b < c`
 `a < b ≤ c`   | `a < b && b <= c`
@@ -101,7 +101,7 @@ Note: Shift operations above are given for 32 bit integers, but also applies to 
 
 ## TODO: New Operators
 
-Optional Dex | Regular D
+New Syntax | Regular D
 -------------|----------
 '√e' | opUnary!"√"
 'a · b' | opBinary!"·"
@@ -119,7 +119,11 @@ Optional Dex | Regular D
 'a ⊉ b' | opBinary!"⊉"
 'a ∈ b' | opBinary!"∈"
 'a ∉ b' | opBinary!"∉"
+'a ✕ b' | opBinary!"✕"
+'a ⊕ b' | opBinary!"⊕"
+'a ⊖ b' | opBinary!"⊖"
+'a ⊗ b' | opBinary!"⊗"
+'a ⊘ b' | opBinary!"⊘"
+'a ⊙ b' | opBinary!"⊙"
 `⊦e`  | `assert(e)`
-
-Other binary operators to consider: `✕ ⊕	⊖	⊗	⊘	⊙	⊚	⊛ `.
 
