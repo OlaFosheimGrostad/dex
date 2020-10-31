@@ -80,6 +80,7 @@ Optional Dex | Regular D
 `#a`| `a.length`
 `a[#-1]` | `a[$-1]`
 `if e?.a {}` | `if (e !is null && e.a) {}`
+`obj?.a?.b ⟵ e` | `if (obj !is null && obj.a !is null) obj.a.b = e`
 
 Note: Shift operations above are given for 32 bit integers, but also applies to other bit sizes.
 
