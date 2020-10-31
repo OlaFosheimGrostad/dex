@@ -138,16 +138,6 @@ Dex          | Regular D
 
 
 
-TODO: Sequence to Comma Separated List
---------------------------------------
-
-Optional Dex | Regular D | Comment
--------------|----------|----
-`…,f(a[$$])...` | `…,f(a[0]), f(a[1]), …` | expands until a is out of index
-`(a[$$*2]+ba[$$*2+1])...` | `…,f(a[0]+b[1]), f(a[2]+b[3]), …` | expands until either a or b is out of index
-
-
-
 Strict Dex mode
 ===============
 Applies to files ending with `.dex`.
@@ -163,7 +153,7 @@ Alias this. Will be replaced with single inheritance.
 
 D syntax that is not available in Dex mode or has changed meaning
 -----------------------------------------------------------------
-`=`, `==` , `!=`,  `!…`, `…?…:…`, `&&`, `||`, `<=`, `>=`, `…&…`
+`=`, `==` , `!=`,  `!…`, `…?…:…`, `&&`, `||`, `<=`, `>=`, `…&…`, `$`, `$$`
 
 TODO: Semantics
 ---------------
@@ -197,3 +187,13 @@ Strict Dex | Regular D
 `a ≠≠ b` | `a !is b`
 `e1 if e else e2`|`e ? e1 : e2`
 `if e?.a {}` | `if (e !is null && e.a) {}`
+
+TODO: Sequence to Comma Separated List
+--------------------------------------
+
+Optional Dex | Regular D | Comment
+-------------|----------|----
+`…,f(a[$])...` | `…,f(a[0]), f(a[1]), …` | expands until a is out of index
+`(a[$*2]+ba[$*2+1])...` | `…,f(a[0]+b[1]), f(a[2]+b[3]), …` | expands until either a or b is out of index
+
+
