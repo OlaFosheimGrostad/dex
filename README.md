@@ -73,17 +73,6 @@ Optional Dex | Regular D
 `a ∨⤺ b` | `a|(1<<b)`
 `a ∧⤺ b` | `a&~(1<<b)`
 `a ⊻⤺ b` | `a^(1<<b)`
-`«+»(a,b,c,…)` | `((a+b)+c)+…`
-`«-»(a,b,c,…)` | `((a-b)-c)-…`
-`«*»(a,b,c,…)` | `((a*b)*c)*…`
-`«∧»(a,b,c,…)`| `((a&b)&c)&…`
-`«∨»(a,b,c,…)`| `((a|b)|c)|…`
-`«∨»(a,b,c,…)`| `((a|b)|c)|…`
-`«⊻(a,b,c,…)»`| `((a^b)^c)|…`
-`«=»(a,b,c,…)` | `(a==b)&&(b==c)&&…`
-`«=?»(a,b,c,…)` | `(a==b)||(b==c)||…`
-`«≠»(a,b,c,…)` | `(a!=b)&&(b!=c)&&…`
-`«≠?»(a,b,c,…)` | `(a!=b)||(b!=c)||…`
 `∂x` | illegal identifier
 `∞` | illegal identifier
 `∅` | illegal identifier
@@ -94,12 +83,12 @@ Optional Dex | Regular D
 `§array‹T›` | `__trait(isStaticArray,T)`
 `#a`| `a.length`
 `a[#-1]` | `a[$-1]`
-`…,f(a[$$])...` | `…,f(a[0]), f(a[1]), …` until out of index
 
 Note: Shift operations above are given for 32 bit integers, but also applies to other bit sizes.
 
 TODO: New Operators
 ------------------
+
 Optional Dex | Regular D
 -------------|----------
 '√e' | opUnary!"√"
@@ -121,6 +110,33 @@ Optional Dex | Regular D
 `⊦e`  | `assert(e)`
 
 Other binary operators to consider: `✕ ⊕	⊖	⊗	⊘	⊙	⊚	⊛ `.
+
+TODO: Generalized Operators
+---------------------------
+Optional Dex | Regular D
+-------------|----------
+`«/»(a,b)` | `a/b`
+`«+»(a,b,c,…)` | `((a+b)+c)+…`
+`«-»(a,b,c,…)` | `((a-b)-c)-…`
+`«*»(a,b,c,…)` | `((a*b)*c)*…`
+`«∧»(a,b,c,…)`| `((a&b)&c)&…`
+`«∨»(a,b,c,…)`| `((a|b)|c)|…`
+`«∨»(a,b,c,…)`| `((a|b)|c)|…`
+`«⊻(a,b,c,…)»`| `((a^b)^c)|…`
+`«=»(a,b,c,…)` | `(a==b)&&(b==c)&&…`
+`«=?»(a,b,c,…)` | `(a==b)||(b==c)||…`
+`«≠»(a,b,c,…)` | `(a!=b)&&(b!=c)&&…`
+`«≠?»(a,b,c,…)` | `(a!=b)||(b!=c)||…`
+
+Note: Implemented as functions, so that you can do `reduce(«+»,list)`.
+
+
+TODO: Sequence to Comma Separated List
+--------------------------------------
+
+Optional Dex | Regular D
+-------------|----------
+`…,f(a[$$])...` | `…,f(a[0]), f(a[1]), …` until out of index
 
 
 Strict Dex mode
