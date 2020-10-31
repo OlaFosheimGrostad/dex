@@ -43,7 +43,7 @@ Note: `a [+] b` saturates to [0.0,1.0> for floating point.
 
 New Syntax | Regular D
 -------------|----------
-`⊦e`  | `assert(e)`
+`⊦e`  | `assert(e)` but as a verification hint
 `a < b < c`   | `a < b && b < c`
 `a < b ≤ c`   | `a < b && b <= c`
 `a ≤ b < c`   | `a <= b && b < c`
