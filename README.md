@@ -50,7 +50,7 @@ Optional Dex | Semantics
 Note: `ASSUME` will run as an assert in sanitization builds, and will be removed in non-optimizing builds.
 
 
-## TODO:Syntax Sugar
+## TODO: Syntax Sugar Additions
 
 Optional Dex | Regular D
 -------------|----------
@@ -85,6 +85,24 @@ Optional Dex | Regular D
 `if e?.a {}` | `if (e !is null && e.a) {}`
 `obj?.a?.b ⟵ e;` | `if (obj !is null && obj.a !is null) obj.a.b = e;`
 `obj?.a?.f(…);` | `if (obj !is null && obj.a !is null) obj.a.f(…);`
+`((a * b + c))` | multiply add a*b+c
+`(+ a,b,c,…)` | `((a+b)+c)+…`
+`(* a,b,c,…)` | `((a*b)*c)*…`
+`(∧ a,b,c,…)`| `((a&b)&c)&…`
+`(∨ a,b,c,…)`| `((a\|b)\|c)\|…`
+`(⊻ a,b,c,…)`| `((a^b)^c)^…`
+`(= a,b,c,…)` | `(a==b)&&(b==c)&&…`
+`(≠ a,b,c,…)` | `(a!=b)&&(b!=c)&&…`
+`(< a,b,c,…)` | `(a<b)&&(b<c)&&…`
+`(≤ a,b,c,…)` | `(a≤b)&&(b≤c)&&…`
+`(a < b,c,…)` | `(a<b)&&(a<c)&&…`
+`(a ≤ b,c,…)` | `(a≤b)&&(a≤c)&&…`
+`(a > b,c,…)` | `(a>b)&&(a>c)&&…`
+`(a ≥ b,c,…)` | `(a≥b)&&(a≥c)&&…`
+`(? a < b,c,…)` | `(a<b)\|\|(a<c)\|\|…`
+`(? a ≤ b,c,…)` | `(a≤b)\|\|(a≤c)\|\|…`
+`(? a > b,c,…)` | `(a>b)\|\|(a>c)\|\|…`
+`(? a_≥ b,c,…)` | `(a≥b)\|\|(a≥c)\|\|…`
 
 Note: Shift operations above are given for 32 bit integers, but also applies to other bit sizes.
 
@@ -113,31 +131,7 @@ Optional Dex | Regular D
 
 Other binary operators to consider: `✕ ⊕	⊖	⊗	⊘	⊙	⊚	⊛ `.
 
-## TODO: Operators For Multiple Operands
 
-Dex          | Regular D
--------------|----------
-`((a * b + c))` | multiply add a*b+c
-`(+ a,b,c,…)` | `((a+b)+c)+…`
-`(* a,b,c,…)` | `((a*b)*c)*…`
-`(∧ a,b,c,…)`| `((a&b)&c)&…`
-`(∨ a,b,c,…)`| `((a\|b)\|c)\|…`
-`(⊻ a,b,c,…)`| `((a^b)^c)^…`
-`(= a,b,c,…)` | `(a==b)&&(b==c)&&…`
-`(≠ a,b,c,…)` | `(a!=b)&&(b!=c)&&…`
-`(< a,b,c,…)` | `(a<b)&&(b<c)&&…`
-`(≤ a,b,c,…)` | `(a≤b)&&(b≤c)&&…`
-`(a < b,c,…)` | `(a<b)&&(a<c)&&…`
-`(a ≤ b,c,…)` | `(a≤b)&&(a≤c)&&…`
-`(a > b,c,…)` | `(a>b)&&(a>c)&&…`
-`(a ≥ b,c,…)` | `(a≥b)&&(a≥c)&&…`
-`(? a < b,c,…)` | `(a<b)\|\|(a<c)\|\|…`
-`(? a ≤ b,c,…)` | `(a≤b)\|\|(a≤c)\|\|…`
-`(? a > b,c,…)` | `(a>b)\|\|(a>c)\|\|…`
-`(? a_≥ b,c,…)` | `(a≥b)\|\|(a≥c)\|\|…`
-
- 
- 
   
   
    
