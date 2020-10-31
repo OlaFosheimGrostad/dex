@@ -92,7 +92,7 @@ New Syntax | Regular D
 `(? a < b,c,…)` | `(a<b)\|\|(a<c)\|\|…`
 `(? a ≤ b,c,…)` | `(a≤b)\|\|(a≤c)\|\|…`
 `(? a > b,c,…)` | `(a>b)\|\|(a>c)\|\|…`
-`(? a_≥ b,c,…)` | `(a≥b)\|\|(a≥c)\|\|…`
+`(? a ≥ b,c,…)` | `(a≥b)\|\|(a≥c)\|\|…`
 `a (+) b` | modular a + b for unsigned integers
 `a (-) b` | modular a - b for unsigned integers
 `a (*) b` | modular a * b for unsigned integers
