@@ -45,6 +45,8 @@ Trace dangling pointers to interiors of Object subclasses after destruction in s
 
 Optional Dex | Semantics
 -------------|----------
+`a [+] b` | saturate a + b
+`a [-] b` | saturate a - b
 `§ASSUME(e)` | the compiler will assume e to always hold true
 
 Note: `ASSUME` will run as an assert in sanitization builds, and will be removed in non-optimizing builds.
@@ -167,8 +169,6 @@ Strict Dex | Semantics
 `a (+) b` | modular a + b for unsigned integers
 `a (-) b` | modular a - b for unsigned integers
 `a (*) b` | modular a * b for unsigned integers
-`a [+] b` | saturate a + b
-`a [-] b` | saturate a - b
 
 ## TODO: Syntax
 
