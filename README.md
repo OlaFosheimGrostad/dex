@@ -12,7 +12,7 @@ Dex is based on [LDC](https://wiki.dlang.org/LDC).
 
 Requires CMake, Clang, LLVM 11 and a D compiler.
 
-## Extended-D Examples
+## Extended-D Code Example
 
 ```
 print ≡ writeln;
