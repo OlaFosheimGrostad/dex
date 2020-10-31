@@ -15,11 +15,14 @@ Requires CMake, Clang, LLVM 11 and a D compiler.
 ## TODO: Extended-D Code Examples
 
 ```
-main(){
-}
-```|
-```
-main(){
-}
-```
+print ≡ writeln;
 
+main(){
+   for int i⟵0; i ≤ 100; i++ {
+      if i ≤ 10 {
+        string s ⟵ to‹string›(i);
+        print(s);
+      }
+   }
+}
+```
