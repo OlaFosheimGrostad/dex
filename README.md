@@ -62,7 +62,7 @@ Optional Dex | Regular D
 `b <: a`   | `typeid(a) != typeid(b) && typeid(a).isBaseOf(typeid(b))` , a and b can be type/object
 `¬e`| `~e`
 `a ∧ b`| `a & b`
-`a ∨ b`| `a | b`
+`a ∨ b`| `a \| b`
 `a ⊻ b`| `a ^ b`
 `a ⤺ b`| `a << b`
 `a ⤻ b`| `a << b`
@@ -120,13 +120,13 @@ Optional Dex | Regular D
 `«-»(a,b,c,…)` | `((a-b)-c)-…`
 `«*»(a,b,c,…)` | `((a*b)*c)*…`
 `«∧»(a,b,c,…)`| `((a&b)&c)&…`
-`«∨»(a,b,c,…)`| `((a|b)|c)|…`
-`«∨»(a,b,c,…)`| `((a|b)|c)|…`
+`«∨»(a,b,c,…)`| `((a\|b)\|c)\|…`
+`«∨»(a,b,c,…)`| `((a\|b)\|c)\|…`
 `«⊻(a,b,c,…)»`| `((a^b)^c)|…`
 `«=»(a,b,c,…)` | `(a==b)&&(b==c)&&…`
-`«=?»(a,b,c,…)` | `(a==b)\|\|(b==c)||…`
+`«=?»(a,b,c,…)` | `(a==b)\|\|(b==c)\|\|…`
 `«≠»(a,b,c,…)` | `(a!=b)&&(b!=c)&&…`
-`«≠?»(a,b,c,…)` | `(a!=b)||(b!=c)||…`
+`«≠?»(a,b,c,…)` | `(a!=b)\|\|(b!=c)\|\|…`
 
 Note: Implemented as functions, so that you can do `reduce(«+»,list)`.
 
