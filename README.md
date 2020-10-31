@@ -131,7 +131,7 @@ Dex          | Regular D
 
 
 
-
+---
 
 # Strict Dex mode
 
