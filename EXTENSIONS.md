@@ -1,0 +1,125 @@
+# Dex Extensions of D
+
+## Syntax Sugar Additions
+
+Optional Dex | Regular D
+-------------|----------
+`for … {…}`  | `for (…) {…}`
+`foreach … {…}`  | `foreach (…) {…}`
+`while … {…}`  | `while (…) {…}`
+`if … {…}`  | `if (…) {…}`
+`symbol‹…›` | `symbol!(…)`
+`x ⟵ expr` | `x = expr`
+`symbol ≡ type` | `alias symbol = type`
+`x ≤ y` | `x <= y`
+`x ≥ y` | `x >= y`
+`x ≠ y` | `x != y`
+
+
+## TODO: Semantic Changes
+
+Overflow on signed integers is undefined behaviour. 
+Overflow on the right operand of shift operations is undefined behaviour. 
+Detected at runtime in sanitization builds.
+
+Class definition available as struct for low level non-portable programming.
+
+Garbage collector does not call destructors.
+
+All Object types have strong and weak reference counters that are used to enable deterministic destruction. 
+Trace dangling pointers to interiors of Object subclasses after destruction in sanitization builds.
+
+Optional Dex | Semantics
+-------------|----------
+`a [+] b` | saturate a + b
+`a [-] b` | saturate a - b
+`§ASSUME(e)` | the compiler will assume e to always hold true
+
+Note: `ASSUME` will run as an assert in sanitization builds, and will be removed in non-optimizing builds.
+
+Note: `a [+] b` saturates to [0.0,1.0> for floating point.
+
+## TODO: Syntax Sugar Additions
+
+Optional Dex | Regular D
+-------------|----------
+`a < b < c`   | `a < b && b < c`
+`a < b ≤ c`   | `a < b && b <= c`
+`a ≤ b < c`   | `a <= b && b < c`
+`a ≤ b ≤ c`   | `a <= b && b <= c`
+`B ≤: A`   | `is(B:A)`
+`B :=: A`  | `is(B==A)`
+`B <: A`   | `is(B:A) && !is(B==A)`
+`b ≤: a`   | `typeid(a).isBaseOf(typeid(b))` , a and b can be type/object
+`b :=: a`  | `typeid(a) == typeid(b)` , a and b can be type/object
+`b <: a`   | `typeid(a) != typeid(b) && typeid(a).isBaseOf(typeid(b))` , a and b can be type/object
+`¬e`| `~e`
+`a ∨ b`| `a \| b`
+`a ∧ b`| `a & b`
+`a ⊻ b`| `a ^ b`
+`a ⤺ b`| `a << b`
+`a ⤻ b`| `a >> b`
+`a ⤺ b ⤙ c`| `(a << b)\|(c>>(32-b))`
+`c ⤚ a ⤻ b`| `(a >> b)\|((c<<(32-b))&((1<<b)-1))` for unsigned
+`a ⤺? b`| `b&~0x1f ? 0 : a << b`
+`a ⤻? b`| `b&~0x1f ? (a<0 ? -1 : 0) : a >> b`
+`∂x` | illegal identifier
+`∞` | illegal identifier
+`∅` | illegal identifier
+`§int‹T›` | `__trait(isIntegral,T)`
+`§fp‹T›` | `__trait(isFloating,T)`
+`§scalar‹T›` | `__trait(isScalar,T)`
+`§unsigned‹T›` | `__trait(isUnsigned,T)`
+`§array‹T›` | `__trait(isStaticArray,T)`
+`if e?.a {}` | `if (e !is null && e.a) {}`
+`obj?.a?.b ⟵ e;` | `if (obj !is null && obj.a !is null) obj.a.b = e;`
+`obj?.a?.f(…);` | `if (obj !is null && obj.a !is null) obj.a.f(…);`
+`((a * b + c))` | multiply add a*b+c
+`(+ a,b,c,…)` | `((a+b)+c)+…`
+`(* a,b,c,…)` | `((a*b)*c)*…`
+`(∧ a,b,c,…)`| `((a&b)&c)&…`
+`(∨ a,b,c,…)`| `((a\|b)\|c)\|…`
+`(⊻ a,b,c,…)`| `((a^b)^c)^…`
+`(= a,b,c,…)` | `(a==b)&&(b==c)&&…`
+`(≠ a,b,c,…)` | `(a!=b)&&(b!=c)&&…`
+`(< a,b,c,…)` | `(a<b)&&(b<c)&&…`
+`(≤ a,b,c,…)` | `(a≤b)&&(b≤c)&&…`
+`(a < b,c,…)` | `(a<b)&&(a<c)&&…`
+`(a ≤ b,c,…)` | `(a≤b)&&(a≤c)&&…`
+`(a > b,c,…)` | `(a>b)&&(a>c)&&…`
+`(a ≥ b,c,…)` | `(a≥b)&&(a≥c)&&…`
+`(? a < b,c,…)` | `(a<b)\|\|(a<c)\|\|…`
+`(? a ≤ b,c,…)` | `(a≤b)\|\|(a≤c)\|\|…`
+`(? a > b,c,…)` | `(a>b)\|\|(a>c)\|\|…`
+`(? a_≥ b,c,…)` | `(a≥b)\|\|(a≥c)\|\|…`
+`a (+) b` | modular a + b for unsigned integers
+`a (-) b` | modular a - b for unsigned integers
+`a (*) b` | modular a * b for unsigned integers
+
+Note: Shift operations above are given for 32 bit integers, but also applies to other bit sizes.
+
+
+## TODO: New Operators
+
+Optional Dex | Regular D
+-------------|----------
+'√e' | opUnary!"√"
+'a · b' | opBinary!"·"
+'a ≈ b' | opBinary!"≈"
+'a ≉ b' | opBinary!"≉"
+'a ∩ b' | opBinary!"∩"
+'a ∪ b' | opBinary!"∪"
+'a ⊂ b' | opBinary!"⊂"
+'a ⊃ b' | opBinary!"⊃"
+'a ⊄ b' | opBinary!"⊄"
+'a ⊅ b' | opBinary!"⊅"
+'a ⊆ b' | opBinary!"⊆"
+'a ⊇ b' | opBinary!"⊇"
+'a ⊈ b' | opBinary!"⊈"
+'a ⊉ b' | opBinary!"⊉"
+'a ∈ b' | opBinary!"∈"
+'a ∉ b' | opBinary!"∉"
+`⊦e`  | `assert(e)`
+
+Other binary operators to consider: `✕ ⊕	⊖	⊗	⊘	⊙	⊚	⊛ `.
+
