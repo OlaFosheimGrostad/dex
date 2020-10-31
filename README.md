@@ -15,4 +15,11 @@ Requires CMake, Clang, LLVM 11 and a D compiler.
 ## TODO: Extended-D Code Examples
 
 ```
+main(){
+}
+```|
 ```
+main(){
+}
+```
+
