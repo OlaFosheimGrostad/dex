@@ -194,6 +194,6 @@ TODO: Sequence to Comma Separated List
 Optional Dex | Regular D | Comment
 -------------|----------|----
 `…,f(a[$])...` | `…,f(a[0]), f(a[1]), …` | expands until a is out of index
-`(a[$*2]+ba[$*2+1])...` | `…,f(a[0]+b[1]), f(a[2]+b[3]), …` | expands until either a or b is out of index
+`(a[$*2]+ba[$*2+1])...` | `a[0]+b[1], a[2]+b[3], …` | expands until either a or b is out of index
 
 
