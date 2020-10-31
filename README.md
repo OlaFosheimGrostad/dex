@@ -67,8 +67,6 @@ Optional Dex | Regular D
 `c ⤚ a ⤻ b`| `(a >> b)\|((c<<(32-b))&((1<<b)-1))` for unsigned
 `a ⤺? b`| `b&~0x1f ? 0 : a << b`
 `a ⤻? b`| `b&~0x1f ? (a<0 ? -1 : 0) : a >> b`
-`a ⟲ b`| bitwise rotate left
-`a ⟳ b`| bitwise rotate right
 `∂x` | illegal identifier
 `∞` | illegal identifier
 `∅` | illegal identifier
