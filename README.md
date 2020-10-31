@@ -15,9 +15,10 @@ Requires CMake, Clang, LLVM 11 and a D compiler.
 ## Extended-D Code Example
 
 ```
+import std.stdio, std.conv;
 print ≡ writeln;
 
-main(){
+void main(){
    for int i⟵0; i ≤ 100; i++ {
       if i ≤ 10 {
         string s⟵to‹string›(i);
