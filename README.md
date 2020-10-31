@@ -4,19 +4,17 @@ Version 0.0.1 gamma. Work in progress.
 
 Based on [LDC](https://wiki.dlang.org/LDC).
 
-Building
---------
+##Building
+
 Requires CMake, Clang, LLVM 11 and a D compiler.
 
 
-Syntax and Semantics Additions
-============
+# Syntax and Semantics Additions
 
 Dex accept regular `.d` files with regular D syntax and optional additional syntax.
 
 
-Syntax Sugar Additions
-----------------------
+## Syntax Sugar Additions
 
 Optional Dex | Regular D
 -------------|----------
@@ -32,8 +30,8 @@ Optional Dex | Regular D
 `x ≠ y` | `x != y`
 
 
-TODO: Semantic Changes
-----------------------
+## TODO: Semantic Changes
+
 Overflow on signed integers is undefined behaviour. 
 Overflow on the right operand of shift operations is undefined behaviour. 
 Detected at runtime in sanitization builds.
@@ -45,8 +43,8 @@ Garbage collector does not call destructors.
 All Object types have strong and weak reference counters that are used to enable deterministic destruction. 
 Trace dangling pointers to interiors of Object subclasses after destruction in sanitization builds.
 
-TODO:Syntax Sugar
---------------
+## TODO:Syntax Sugar
+
 Optional Dex | Regular D
 -------------|----------
 `a < b < c`   | `a < b && b < c`
@@ -84,8 +82,7 @@ Optional Dex | Regular D
 
 Note: Shift operations above are given for 32 bit integers, but also applies to other bit sizes.
 
-TODO: New Operators
-------------------
+## TODO: New Operators
 
 Optional Dex | Regular D
 -------------|----------
@@ -109,8 +106,7 @@ Optional Dex | Regular D
 
 Other binary operators to consider: `✕ ⊕	⊖	⊗	⊘	⊙	⊚	⊛ `.
 
-TODO: Operators For Multiple Operands
--------------------------------------
+## TODO: Operators For Multiple Operands
 
 Dex          | Regular D
 -------------|----------
@@ -137,12 +133,11 @@ Dex          | Regular D
 
 
 
-Strict Dex mode
-===============
+# Strict Dex mode
+
 Applies to files ending with `.dex`.
 
-D constructs that are not available in Dex mode
------------------------------------------------
+## D constructs that are not available in Dex mode
 
 Builtin associative arrays.
 
@@ -150,12 +145,10 @@ Auto-decode.
 
 Alias this. Will be replaced with single inheritance.
 
-D syntax that is not available in Dex mode or has changed meaning
------------------------------------------------------------------
+## D syntax that is not available in Dex mode or has changed meaning
 `=`, `==` , `!=`,  `!…`, `…?…:…`, `&&`, `||`, `<=`, `>=`, `…&…`, `$`, `$$`
 
-TODO: Semantics
----------------
+## TODO: Semantics
 Overflow on unigned integers is undefined behaviour, except for shift left. Detected at runtime in sanitization builds.
 
 A new `proxy aggregate` for writing smart pointers. In order to access the internals of the proxy object it has to be dereferenced using a deproxy-operator. All other operations work on the referenced object.
@@ -172,8 +165,7 @@ Strict Dex | Semantics
 
 Note: `ASSUME` will run as an assert in sanitization builds, and will be removed in non-optimizing builds.
 
-TODO: Syntax
-----------------------
+## TODO: Syntax
 
 Strict Dex | Regular D
 -----------|----------
@@ -187,8 +179,7 @@ Strict Dex | Regular D
 `e1 if e else e2`|`e ? e1 : e2`
 `if e?.a {}` | `if (e !is null && e.a) {}`
 
-TODO: Sequence to Comma Separated List
---------------------------------------
+## TODO: Sequence to Comma Separated List
 
 Optional Dex | Regular D | Comment
 -------------|----------|----
