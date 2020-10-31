@@ -79,6 +79,7 @@ Optional Dex | Regular D
 `§array‹T›` | `__trait(isStaticArray,T)`
 `#a`| `a.length`
 `a[#-1]` | `a[$-1]`
+`if e?.a {}` | `if (e !is null && e.a) {}`
 
 Note: Shift operations above are given for 32 bit integers, but also applies to other bit sizes.
 
@@ -184,7 +185,6 @@ Strict Dex | Regular D
 `a == b` | `a is b`
 `a ≠≠ b` | `a !is b`
 `e1 if e else e2`|`e ? e1 : e2`
-`if e?.a {}` | `if (e !is null && e.a) {}`
 
 ## TODO: Sequence to Comma Separated List
 
