@@ -111,21 +111,27 @@ Optional Dex | Regular D
 
 Other binary operators to consider: `✕ ⊕	⊖	⊗	⊘	⊙	⊚	⊛ `.
 
-TODO: Generalized Operators
----------------------------
-Optional Dex | Regular D
+TODO: Operators For Multiple Operands
+-------------------------------------
+
+Dex          | Regular D
 -------------|----------
-`+…(a,b,c,…)` | `((a+b)+c)+…`
-`-…(a,b,c,…)` | `((a-b)-c)-…`
-`*…(a,b,c,…)` | `((a*b)*c)*…`
-`∧…(a,b,c,…)`| `((a&b)&c)&…`
-`∨…(a,b,c,…)`| `((a\|b)\|c)\|…`
-`∨…(a,b,c,…)`| `((a\|b)\|c)\|…`
-`⊻…(a,b,c,…)»`| `((a^b)^c)|…`
-`=…(a,b,c,…)` | `(a==b)&&(b==c)&&…`
-`=…?(a,b,c,…)` | `(a==b)\|\|(b==c)\|\|…`
-`≠…(a,b,c,…)` | `(a!=b)&&(b!=c)&&…`
-`≠…?(a,b,c,…)` | `(a!=b)\|\|(b!=c)\|\|…`
+`((a * b + c))` | multiply add a*b+c
+`(+ a,b,c,…)` | `((a+b)+c)+…`
+`(* a,b,c,…)` | `((a*b)*c)*…`
+`(∧ a,b,c,…)`| `((a&b)&c)&…`
+`(∨ a,b,c,…)`| `((a\|b)\|c)\|…`
+`(⊻ a,b,c,…)»`| `((a^b)^c)^…`
+`(= a,b,c,…)` | `(a==b)&&(b==c)&&…`
+`(≠ a,b,c,…)` | `(a==b)&&(b==c)&&…`
+`(< a,b,c,…)` | `(a<b)&&(b<c)&&…`
+`(≤ a,b,c,…)` | `(a<b)&&(b<c)&&…`
+`(=? a,b,c,…)` | `(a==b)\|\|(b==c)\|\|…`
+`(≠? a,b,c,…)` | `(a==b)\|\|(b==c)\|\|…`
+`(<? a,b,c,…)` | `(a<b)\|\|(b<c)\|\|…`
+`(≤? a,b,c,…)` | `(a<b)\|\|(b<c)\|\|…`
+
+
 
 
 TODO: Sequence to Comma Separated List
