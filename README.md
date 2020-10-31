@@ -69,7 +69,7 @@ Optional Dex | Regular D
 `a ⤻? b`| `b&~0x1f ? (a<0 ? -1 : 0) : a >> b`
 `a ⟲ b`| bitwise rotate left
 `a ⟳ b`| bitwise rotate right
-`a |⤺ b` | `a\|(1<<b)`
+`a \|⤺ b` | `a\|(1<<b)`
 `a ∧⤺ b` | `a&~(1<<b)`
 `a ⊻⤺ b` | `a^(1<<b)`
 `∂x` | illegal identifier
