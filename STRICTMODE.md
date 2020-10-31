@@ -1,4 +1,4 @@
-# Dex Language Reference
+# Dex Strict Mode
 
 Applies to files ending with `.dex`.
 
@@ -23,7 +23,7 @@ A new `proxy aggregate` for writing smart pointers. In order to access the inter
 
 ## TODO: Syntax
 
-Strict Dex | Regular D
+Strict Mode Syntax| Regular D
 -----------|----------
 `x = y`  | `x == y`
 `«if»`   | identifier "if"
@@ -39,7 +39,7 @@ Strict Dex | Regular D
 
 ## TODO: Sequence to Comma Separated List
 
-Optional Dex | Regular D | Comment
+Strict Mode Syntax | Regular D | Comment
 -------------|----------|----
 `f(a[$]),…` | `f(a[0]), f(a[1]), …` | expands until a is out of index
 `(a[$*2]+ba[$*2+1]),…` | `a[0]+b[1], a[2]+b[3], …` | expands until either a or b is out of index
