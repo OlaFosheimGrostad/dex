@@ -60,6 +60,28 @@ Optional Dex | Regular D
 `b ≤: a`   | `typeid(a).isBaseOf(typeid(b))` , a and b can be type/object
 `b :=: a`  | `typeid(a) == typeid(b)` , a and b can be type/object
 `b <: a`   | `typeid(a) != typeid(b) && typeid(a).isBaseOf(typeid(b))` , a and b can be type/object
+`¬e`| `~e`
+`a ∧ b`| `a & b`
+`a ∨ b`| `a | b`
+`a ⊻ b`| `a ^ b`
+`a ⤺ b`| `a << b`
+`a ⤻ b`| `a << b`
+`a ⤺? b`| `b&~0x1f ? 0 : a << b`
+`a ⤻? b`| `b&~0x1f ? (a<0 ? -1 : 0) : a >> b`
+`a ⟲ b`| bitwise rotate left
+`a ⟳ b`| bitwise rotate right
+`a ∨⤺ b | `a|(1<<b)`
+`a ∧⤺ b | `a&~(1<<b)`
+`a ⊻⤺ b | `a^(1<<b)`
+`«+»(a,b,c,…)` | `((a+b)+c)+…`
+`«*»(a,b,c,…)` | `((a*b)*c)*…`
+`«=»(a,b,c,…)` | `(a==b)&&(b==c)&&…`
+`«≠»(a,b,c,…)` | `(a!=b)&&(b!=c)&&…`
+`«∧»(a,b,c,…)`| `a&b&c&…`
+`«∧»(a,b,c,…)`| `a&b&c&…`
+`«∨»(a,b,c,…)`| `a|b|c|…`
+`«∨»(a,b,c,…)`| `a|b|c|…`
+`«⊻(a,b,c,…)»`| `a^b^c|…`
 `∂x` | illegal identifier
 `∞` | illegal identifier
 `∅` | illegal identifier
@@ -69,6 +91,7 @@ Optional Dex | Regular D
 `§unsigned‹T›` | `__trait(isUnsigned,T)`
 `§array‹T›` | `__trait(isStaticArray,T)`
 
+Note: Shift operations above are given for 32 bit integers, but also applies to other bit sizes.
 
 TODO: New Operators
 ------------------
@@ -92,9 +115,7 @@ Optional Dex | Regular D
 'a ∉ b' | opBinary!"∉"
 `⊦e`  | `assert(e)`
 
-Other binary operators to consider:
-`✕ ⊕	⊖	⊗	⊘	⊙	⊚	⊛ ∧	∨ ⊻`
-, and unary: `¬` .
+Other binary operators to consider: `✕ ⊕	⊖	⊗	⊘	⊙	⊚	⊛ `.
 
 
 Strict Dex mode
