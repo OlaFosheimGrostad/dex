@@ -62,7 +62,8 @@ Optional Dex | Regular D
 `a ∧ b`| `a & b`
 `a ⊻ b`| `a ^ b`
 `a ⤺ b`| `a << b`
-`a ⤻ b`| `a << b`
+`a ⤻ b`| `a >> b`
+`a ⤺ b ⤙ c`| `(a << b)|(c>>(32-b))`
 `a ⤺? b`| `b&~0x1f ? 0 : a << b`
 `a ⤻? b`| `b&~0x1f ? (a<0 ? -1 : 0) : a >> b`
 `a ⟲ b`| bitwise rotate left
