@@ -51,6 +51,7 @@ Optional Dex | Semantics
 
 Note: `ASSUME` will run as an assert in sanitization builds, and will be removed in non-optimizing builds.
 
+Note: `a [+] b` saturates to [0.0,1.0> for floating point.
 
 ## TODO: Syntax Sugar Additions
 
