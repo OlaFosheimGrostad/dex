@@ -43,6 +43,13 @@ Garbage collector does not call destructors.
 All Object types have strong and weak reference counters that are used to enable deterministic destruction. 
 Trace dangling pointers to interiors of Object subclasses after destruction in sanitization builds.
 
+Optional Dex | Semantics
+-------------|----------
+`§ASSUME(e)` | the compiler will assume e to always hold true
+
+Note: `ASSUME` will run as an assert in sanitization builds, and will be removed in non-optimizing builds.
+
+
 ## TODO:Syntax Sugar
 
 Optional Dex | Regular D
@@ -80,6 +87,7 @@ Optional Dex | Regular D
 `obj?.a?.f(…);` | `if (obj !is null && obj.a !is null) obj.a.f(…);`
 
 Note: Shift operations above are given for 32 bit integers, but also applies to other bit sizes.
+
 
 ## TODO: New Operators
 
@@ -167,9 +175,6 @@ Strict Dex | Semantics
 `a (*) b` | modular a * b for unsigned integers
 `a [+] b` | saturate a + b
 `a [-] b` | saturate a - b
-`§ASSUME(e)` | the compiler will assume e to always hold true
-
-Note: `ASSUME` will run as an assert in sanitization builds, and will be removed in non-optimizing builds.
 
 ## TODO: Syntax
 
