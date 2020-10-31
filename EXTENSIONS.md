@@ -43,6 +43,7 @@ Note: `a [+] b` saturates to [0.0,1.0> for floating point.
 
 New Syntax | Regular D
 -------------|----------
+`⊦e`  | `assert(e)`
 `a < b < c`   | `a < b && b < c`
 `a < b ≤ c`   | `a < b && b <= c`
 `a ≤ b < c`   | `a <= b && b < c`
@@ -125,5 +126,4 @@ New Syntax | Regular D
 'a ⊗ b' | opBinary!"⊗"
 'a ⊘ b' | opBinary!"⊘"
 'a ⊙ b' | opBinary!"⊙"
-`⊦e`  | `assert(e)`
 
