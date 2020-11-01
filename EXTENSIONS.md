@@ -141,4 +141,4 @@ New Syntax | Regular D
 'a ⊗ b' | opBinary!"⊗"
 'a ⊘ b' | opBinary!"⊘"
 'a ⊙ b' | opBinary!"⊙"
-
+'a ⊡ b' | opBinary!"⊡"
