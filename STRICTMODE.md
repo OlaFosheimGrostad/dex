@@ -14,7 +14,9 @@ Auto-decode.
 Alias this. Will be replaced with single inheritance.
 
 ## D syntax that is not available in Dex mode or has changed meaning
-`=`, `==` , `!=`,  `!…`, `…?…:…`, `&&`, `||`, `<=`, `>=`, `…&…`, ,`…\|…`, `$`
+No longer in use:  `!=`,  `!…`, `…?…:…`, `&&`, `||`, `<=`, `>=`, `…&…`, ,`…\|…`, `$`
+New meaning: `=`, `==`
+New keyword: `_`
 
 ## TODO: Semantics
 Overflow on unigned integers is undefined behaviour, except for shift left. Detected at runtime in sanitization builds.
