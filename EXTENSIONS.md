@@ -18,11 +18,21 @@ New Syntax | Regular D
 
 ## TODO: Semantic Changes
 
-Overflow on signed integers is undefined behaviour. 
-Overflow on the right operand of shift operations is undefined behaviour. 
-Detected at runtime in sanitization builds.
+Undefined behaviour:
+- Overflow on signed integers
+- Overflow on the right operand of shift operations
+- Out-of-bounds array indexing using the `a![i]` syntax
+- Dereferencing of null pointers
+- Infinite loop without side effects. E.g. `while(1){}`.
 
-Class definition available as struct for low level non-portable programming.
+Sanitization builds should detect:
+- Overflow on signed integers
+- Overflow on the right operand of shift operations
+- Out-of-bounds array indexing
+- Dereferencing of null pointers
+
+Class definition available as struct for low level non-portable programming:
+`class A` becomes `struct __class_A__` or something similar.
 
 Garbage collector does not call destructors.
 
