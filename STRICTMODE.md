@@ -46,3 +46,10 @@ Strict Mode Syntax | Regular D | Comment
 `a[$],b[$],…` | `a[0],b[0],a[1],b[1], …` | expands until either a or b is out of index
 
 
+## TODO: Fold
+
+Strict Mode Syntax | Regular D | Comment
+-------------|----------|----
+`0+(a[$]-b[$])+…` | `0+(a[0]-b[0])+(a[1]-b[1])+…` | expands until either a or b is out of index
+
+
