@@ -119,7 +119,7 @@ New Syntax | Regular D
 `√e` | opUnary!"√"
 `∛e` 	| opUnary!"∛"
 `∜e` 	| opUnary!"∜"  
-`n√e` | opBinary!"√"
+`n√e` | opBinary!"√"(e,n)
 `a · b` | opBinary!"·"
 'a ≈ b' | opBinary!"≈"
 'a ≉ b' | opBinary!"≉"
