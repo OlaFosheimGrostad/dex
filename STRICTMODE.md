@@ -50,6 +50,6 @@ Strict Mode Syntax | Regular D | Comment
 
 Strict Mode Syntax | Regular D | Comment
 -------------|----------|----
-`0+(a[_]-b[_])+…` | `0+(a[0]-b[0])+(a[1]-b[1])+…` | expands until either a or b is out of index
+`0 + (a[_]-b[_]) + …` | `0 + (a[0]-b[0]) + (a[1]-b[1])+…` | expands until either a or b is out of index
 
 
