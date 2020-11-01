@@ -115,6 +115,7 @@ Note: Shift operations above are given for 32 bit integers, but also applies to 
 New Syntax | Regular D
 -------------|----------
 '√e' | opUnary!"√"
+'n√e' | opBinary!"√"
 'a · b' | opBinary!"·"
 'a ≈ b' | opBinary!"≈"
 'a ≉ b' | opBinary!"≉"
