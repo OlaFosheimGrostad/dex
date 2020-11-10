@@ -47,4 +47,4 @@ New Syntax | Regular D
 `a ≤ b < c`   | `a <= b && b < c`
 `a ≤ b ≤ c`   | `a <= b && b <= c`
 
-/Known bug/: in expressions like `a < ++b < c` the middel `++b` is evaluated twice so it will increment with 2 and not 1. Avoid expressions with side effects until this is fixed.
+*Known bug*: in expressions like `a < ++b < c` the middel `++b` is evaluated twice so it will increment with 2 and not 1. Avoid expressions with side effects until this is fixed.
