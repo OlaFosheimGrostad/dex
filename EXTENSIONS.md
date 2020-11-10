@@ -1,27 +1,4 @@
-# Dex Extensions of D
-
-## Syntax Sugar Additions
-
-New Syntax | Regular D
--------------|----------
-`for … {…}`  | `for (…) {…}`
-`foreach … {…}`  | `foreach (…) {…}`
-`while … {…}`  | `while (…) {…}`
-`if … {…}`  | `if (…) {…}`
-`symbol‹…›` | `symbol!(…)`
-`x ⟵ expr` | `x = expr`
-`symbol ≡ type` | `alias symbol = type`
-`x ≤ y` | `x <= y`
-`x ≥ y` | `x >= y`
-`x ≠ y` | `x != y`
-`a < b < c`   | `a < b && b < c`
-`a < b ≤ c`   | `a < b && b <= c`
-`a ≤ b < c`   | `a <= b && b < c`
-`a ≤ b ≤ c`   | `a <= b && b <= c`
-
-Known bug: in expressions like `a < ++b < c` the middel `++b` is evaluated twice so it will increment with 2 and not 1. Avoid expressions with side effects until this is fixed.
-
-## TODO: Semantic Changes
+# TODO: Unimplemented Dex Extensions of D
 
 Undefined behaviour:
 - Overflow on signed integers
@@ -54,7 +31,7 @@ Note: `ASSUME` will run as an assert in sanitization builds, and will be removed
 
 Note: `a [+] b` saturates to [0.0,1.0> for floating point.
 
-## TODO: Syntax Sugar Additions
+## Syntax Sugar
 
 New Syntax | Regular D
 -------------|----------
@@ -73,8 +50,6 @@ New Syntax | Regular D
 `a ⊽ b`| `~(a\|b)`
 `a ⤺ b`| `a << b`
 `a ⤻ b`| `a >> b`
-`a ⤺ b ⤙ c`| `(a << b)\|(c>>(32-b))`
-`c ⤚ a ⤻ b`| `(a >> b)\|((c<<(32-b))&((1<<b)-1))` for unsigned
 `a ⤺? b`| `b&~0x1f ? 0 : a << b`
 `a ⤻? b`| `b&~0x1f ? (a<0 ? -1 : 0) : a >> b`
 `∂x` | illegal identifier
@@ -98,14 +73,6 @@ New Syntax | Regular D
 `(≠ a,b,c,…)` | `(a!=b)&&(b!=c)&&…`
 `(< a,b,c,…)` | `(a<b)&&(b<c)&&…`
 `(≤ a,b,c,…)` | `(a≤b)&&(b≤c)&&…`
-`(a < b,c,…)` | `(a<b)&&(a<c)&&…`
-`(a ≤ b,c,…)` | `(a≤b)&&(a≤c)&&…`
-`(a > b,c,…)` | `(a>b)&&(a>c)&&…`
-`(a ≥ b,c,…)` | `(a≥b)&&(a≥c)&&…`
-`(? a < b,c,…)` | `(a<b)\|\|(a<c)\|\|…`
-`(? a ≤ b,c,…)` | `(a≤b)\|\|(a≤c)\|\|…`
-`(? a > b,c,…)` | `(a>b)\|\|(a>c)\|\|…`
-`(? a ≥ b,c,…)` | `(a≥b)\|\|(a≥c)\|\|…`
 `a (+) b` | modular a + b for unsigned integers
 `a (-) b` | modular a - b for unsigned integers
 `a (*) b` | modular a * b for unsigned integers
@@ -113,7 +80,7 @@ New Syntax | Regular D
 Note: Shift operations above are given for 32 bit integers, but also applies to other bit sizes.
 
 
-## TODO: New Operators
+## Operators
 
 New Syntax | Regular D
 -------------|----------
