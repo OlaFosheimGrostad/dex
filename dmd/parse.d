@@ -563,7 +563,7 @@ final class Parser(AST) : Lexer
                 //todo: PARSE ALIAS NAME BINDING:  identifier ≡ type;  TODO: identifier‹…› ≡ type; 
                 {
                     if (hasOptionalParensThen(peek(&token), TOK.dpp_define_assign)) {
-                        printf("DEBUG DECL this is a new style alias expression\n");
+                        //printf("DEBUG DECL this is a new style alias expression\n");
                         a = parseAliasExpression(TOK.dpp_left_tmpl_param, TOK.dpp_right_tmpl_param, TOK.dpp_define_assign);
                         if (a && a.dim)
                             *pLastDecl = (*a)[a.dim - 1];
@@ -4436,8 +4436,8 @@ final class Parser(AST) : Lexer
 *******************************/
 
 private AST.Dsymbols* parseAliasExpression(TOK lefttoken, TOK righttoken, TOK assigntoken) {
-        printf("parseAliasExpression begin %d %s\n", token.value, token.toChars);
-        scope(exit) printf("parseAliasExpression end\n");
+        //printf("parseAliasExpression begin %d %s\n", token.value, token.toChars);
+        //scope(exit) printf("parseAliasExpression end\n");
         const PrefixAttributes!AST* pAttrs = null;
         const(char)* comment = token.blockComment.ptr;
         StorageClass storage_class = STC.undefined_;
@@ -4453,13 +4453,13 @@ private AST.Dsymbols* parseAliasExpression(TOK lefttoken, TOK righttoken, TOK as
             tok = token.value;
             assert(token.value == TOK.identifier);
             {
-                printf("DEBUG2 ident: %s\n", token.ident.toChars());
+                //printf("DEBUG2 ident: %s\n", token.ident.toChars());
 
                 auto a = new AST.Dsymbols();
                 while (1)
                 {
                     auto ident = token.ident;
-                    printf("DEBUG ident: %s\n", token.ident.toChars());
+                    //printf("DEBUG ident: %s\n", token.ident.toChars());
                     nextToken();
                     AST.TemplateParameters* tpl = null;
                     if (token.value == lefttoken)
@@ -4646,8 +4646,8 @@ private AST.Dsymbols* parseAliasExpression(TOK lefttoken, TOK righttoken, TOK as
      */
     private AST.Dsymbols* parseDeclarations(bool autodecl, PrefixAttributes!AST* pAttrs, const(char)* comment)
     {
-        // printf("parseDeclarations begin %s %d: %d\n", token.loc.filename, token.loc.linnum, token.value);
-        // scope(exit) printf("parseDeclarations end\n");
+        //printf("parseDeclarations begin %s %d: %d\n", token.loc.filename, token.loc.linnum, token.value);
+        //scope(exit) printf("parseDeclarations end\n");
 
         StorageClass storage_class = STC.undefined_;
         TOK tok = TOK.reserved;
@@ -9165,6 +9165,23 @@ private AST.Dsymbols* parseAliasExpression(TOK lefttoken, TOK righttoken, TOK as
 
         case TOK.lessThan:
         case TOK.lessOrEqual:
+            nextToken();
+            auto e2 = parseShiftExp();
+            if (token.value == TOK.lessThan || token.value == TOK.lessOrEqual) {
+                auto op2 = token.value;
+                nextToken();
+                auto e3 = parseShiftExp();
+                //TODO: REPLACE THIS WITH A BUILTIN FUNCTION
+                //BUG: evaluates e2 twice, which is a problem for "i++"
+                //     and other expressions with side effects
+                auto e_left = new AST.CmpExp(op, loc, e, e2);
+                auto e_right = new AST.CmpExp(op2, loc, e2, e3);
+                e = new AST.LogicalExp(loc, TOK.andAnd, e_left, e_right);
+                break;
+            }
+            e = new AST.CmpExp(op, loc, e, e2);
+            break;
+
         case TOK.greaterThan:
         case TOK.greaterOrEqual:
             nextToken();
@@ -9267,7 +9284,7 @@ private AST.Dsymbols* parseAliasExpression(TOK lefttoken, TOK righttoken, TOK as
 
     private AST.Expression parseCondExp(size_t debug_line=__LINE__)
     {
-        //printf("parseCondExp %ld\n",debug_line);
+       //printf("parseCondExp %ld\n",debug_line);
         const loc = token.loc;
 
         auto e = parseOrOrExp();

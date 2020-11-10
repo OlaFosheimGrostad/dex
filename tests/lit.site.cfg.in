@@ -35,7 +35,7 @@ config.spirv_enabled       = @LLVM_SPIRV_FOUND@
 config.rt_supports_sanitizers = @RT_SUPPORT_SANITIZERS@
 config.shared_rt_libs_only = "@BUILD_SHARED_LIBS@" == "ON"
 
-config.name = 'LDC'
+config.name = 'Dex'
 
 # testFormat: The test format to use to interpret tests.
 config.test_format = lit.formats.ShTest(execute_external=False)
