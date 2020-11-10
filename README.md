@@ -2,7 +2,7 @@
 
 Version 0.0.1 gamma. Work in progress.
 
-The Dex compiler currently accepts [D](http://dlang.org/) source files (`sourcefile.d`) with language extensions.  It will later accept a [stricter syntax](STRICTMODE.md) that allows the use of `=`for equality comparisons (`sourcefile.dex`).
+The Dex compiler currently accepts [D](http://dlang.org/) source files (`sourcefile.d`) with language extensions.  It will later accept a [stricter syntax](STRICTMODE.md) that allows the use of `=`for equality comparisons.
 
 Dex is based on [LDC](https://wiki.dlang.org/LDC).
 
