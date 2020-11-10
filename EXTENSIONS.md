@@ -14,7 +14,12 @@ New Syntax | Regular D
 `x ≤ y` | `x <= y`
 `x ≥ y` | `x >= y`
 `x ≠ y` | `x != y`
+`a < b < c`   | `a < b && b < c`
+`a < b ≤ c`   | `a < b && b <= c`
+`a ≤ b < c`   | `a <= b && b < c`
+`a ≤ b ≤ c`   | `a <= b && b <= c`
 
+Known bug: in expressions like `a < ++b < c` the middel `++b` is evaluated twice so it will increment with 2 and not 1. Avoid expressions with side effects until this is fixed.
 
 ## TODO: Semantic Changes
 
@@ -54,10 +59,6 @@ Note: `a [+] b` saturates to [0.0,1.0> for floating point.
 New Syntax | Regular D
 -------------|----------
 `⊦e`  | `assert(e)` but as a verification hint
-`a < b < c`   | `a < b && b < c`
-`a < b ≤ c`   | `a < b && b <= c`
-`a ≤ b < c`   | `a <= b && b < c`
-`a ≤ b ≤ c`   | `a <= b && b <= c`
 `B ≤: A`   | `is(B:A)`
 `B :=: A`  | `is(B==A)`
 `B <: A`   | `is(B:A) && !is(B==A)`
