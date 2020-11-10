@@ -2,21 +2,16 @@
 
 Applies to files ending with `.dex`.
 
-Work in progress..
-
-
 ## D constructs that are not available in Dex mode
 
 Builtin associative arrays.
 
-Auto-decode.
-
 Alias this. Will be replaced with single inheritance.
 
 ## D syntax that is not available in Dex mode or has changed meaning
-No longer in use:  `!=`,  `!…`, `…?…:…`, `&&`, `||`, `<=`, `>=`, `…&…`, ,`…\|…`, `$`
+No longer in use:  `!=`,  `!…`, `…?…:…`, `&&`, `||`, `<=`, `>=`, `…&…`, ,`…\|…`
 
-New meaning: `=`, `==`, `$`
+New meaning: `=`, `==`
 
 New keywords: `and`, `or`, `not`
 
@@ -37,23 +32,6 @@ Strict Mode Syntax| Regular D
 `a == b` | `a is b`
 `a ≠≠ b` | `a !is b`
 `e1 if e else e2`|`e ? e1 : e2`
-`#a`| `a.length`
-`a[#-1]` | `a[$-1]`
 
-
-## TODO: Sequence to Comma Separated List
-
-Strict Mode Syntax | Regular D | Comment
--------------|----------|----
-`f(a[$]),…` | `f(a[0]), f(a[1]), …` | expands until a is out of index
-`(a[$*2]+ba[$*2+1]),…` | `a[0]+b[1], a[2]+b[3], …` | expands until either a or b is out of index
-`a[$],b[$],…` | `a[0],b[0],a[1],b[1], …` | expands until either a or b is out of index
-
-
-## TODO: Fold
-
-Strict Mode Syntax | Regular D | Comment
--------------|----------|----
-`0 + (a[$]-b[$]) + …` | `0 + (a[0]-b[0]) + (a[1]-b[1]) + …` | expands until either a or b is out of index
 
 
