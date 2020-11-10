@@ -1,0 +1,35 @@
+==== annoter kompileringsmodul som D±
+registerer et sted i kompileringsenheten at vi kompilerer dplusminus-kode
+
+Subklasse?
+
+==== IDENTIFIER parsing
+Følgende fungerer
+    for(int i ⟵ 0; i ≤ 4; i++) {
+Men 
+    for(int i⟵ 0; i≤ 4; i++) {
+gir feil som f.eks.
+    "Error: char 0x27f5 not allowed in identifier"
+
+
+==== template parameter ‹›
+legg inn TOKEN og bytt ut vanlige () med ‹› der det er
+template parametere
+
+‹  \xe2\x80\xb9
+› \xe2\x80\xba
+
+
+==== identifier quotes
+« \xc2\xab
+» \xc2\xbb
+
+
+==== TOK representasjon
+Når man skriver
+    const hellotext = "hei"
+så får man
+    "Error: found == instead of statement"
+istedenfor
+    "Error: found = instead of statement"
+
