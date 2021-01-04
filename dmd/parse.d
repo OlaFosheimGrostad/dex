@@ -9165,6 +9165,7 @@ private AST.Dsymbols* parseAliasExpression(TOK lefttoken, TOK righttoken, TOK as
 
         case TOK.lessThan:
         case TOK.lessOrEqual:
+        {
             nextToken();
             auto e2 = parseShiftExp();
             if (token.value == TOK.lessThan || token.value == TOK.lessOrEqual) {
@@ -9174,12 +9175,31 @@ private AST.Dsymbols* parseAliasExpression(TOK lefttoken, TOK righttoken, TOK as
                 //TODO: REPLACE THIS WITH A BUILTIN FUNCTION
                 //BUG: evaluates e2 twice, which is a problem for "i++"
                 //     and other expressions with side effects
-                auto e_left = new AST.CmpExp(op, loc, e, e2);
-                auto e_right = new AST.CmpExp(op2, loc, e2, e3);
-                e = new AST.LogicalExp(loc, TOK.andAnd, e_left, e_right);
+
+                // OPT: use static array with 4 Identifier objects instead
+                const char* idstr=
+                    op==TOK.lessThan ? (
+                        op2==TOK.lessThan ? "__dex_cmp3_lt_lt" : "__dex_cmp3_lt_le"
+                    ):(
+                        op2==TOK.lessThan ? "__dex_cmp3_le_lt" : "__dex_cmp3_le_le"
+                    );
+
+                Identifier id = Identifier.idPool(idstr,16);
+
+                AST.IdentifierExp ident = new AST.IdentifierExp(loc, id);
+                AST.Expressions* arguments = new AST.Expressions();
+                arguments.push(e);
+                arguments.push(e2);
+                arguments.push(e3);
+                e = new AST.CallExp(loc, ident, arguments);
+                // OLD CODE:
+                // auto e_left = new AST.CmpExp(op, loc, e, e2);
+                // auto e_right = new AST.CmpExp(op2, loc, e2, e3);
+                // e = new AST.LogicalExp(loc, TOK.andAnd, e_left, e_right);
                 break;
             }
             e = new AST.CmpExp(op, loc, e, e2);
+        }
             break;
 
         case TOK.greaterThan:
