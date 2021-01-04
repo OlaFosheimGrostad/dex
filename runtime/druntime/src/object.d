@@ -4178,3 +4178,24 @@ template _arrayOp(Args...)
 }
 
 void __ctfeWrite(scope const(char)[] s) @nogc @safe pure nothrow {}
+
+
+pragma(inline, true)
+bool __dex_cmp3_lt_lt(T1,T2,T3)(auto ref T1 v, auto ref T2 l, auto ref T3 h){
+    return (l < v) && (v < h);    
+}
+
+pragma(inline, true)
+bool __dex_cmp3_le_lt(T1,T2,T3)(auto ref T1 v, auto ref T2 l, auto ref T3 h){
+    return (l <= v) && (v < h);    
+}
+
+pragma(inline, true)
+bool __dex_cmp3_lt_le(T1,T2,T3)(auto ref T1 v, auto ref T2 l, auto ref T3 h){
+    return (l < v) && (v <= h);    
+}
+
+pragma(inline, true)
+bool __dex_cmp3_le_le(T1,T2,T3)(auto ref T1 v, auto ref T2 l, auto ref T3 h){
+    return (l <= v) && (v <= h);    
+}
