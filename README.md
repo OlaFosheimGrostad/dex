@@ -18,7 +18,7 @@ print ≡ writeln;
 
 void main(){
    for int i⟵0; i ≤ 100; i++ {
-      if i ≤ 10 {
+      if 3 < i ≤ 10 {
         string s⟵to‹string›(i);
         print(s);
       }
@@ -45,4 +45,3 @@ New Syntax | Regular D
 `a ≤ b < c`   | `a <= b && b < c`
 `a ≤ b ≤ c`   | `a <= b && b <= c`
 
-*Known bug*: in expressions like `a < ++b < c` the middle `++b` is evaluated twice so it will increment with 2 and not 1. Fix: avoid expressions with side effects for now.
