@@ -1,8 +1,7 @@
 import std.stdio;
 
 
-alias strarr1 = string[];
-strarr2 ≡ string[];
+strarr ≡ string[];
 dump   ≡ writeln;
 
 
@@ -12,6 +11,6 @@ struct vec‹T,N› {
 
 floats‹N› ≡ vec‹float,N›; 
 
-void main(strarr1 args) {
+void main(strarr args) {
     dump("It works!");
 }
