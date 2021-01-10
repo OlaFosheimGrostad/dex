@@ -6,7 +6,7 @@ Dex is a a compiler with a unicode syntax.
 
 Goals:
 - Avoid symbolic ambiguitiy. 
-- Allow a level of terseness while retaining legibility for experienced programmers.
+- Allow a level of terseness while improving legibility for experienced programmers.
 - Greater expressiveness.
 - Semantic improvements.
 
