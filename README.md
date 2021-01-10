@@ -72,8 +72,21 @@ Dex Syntax| D syntax
 `e1 if e else e2`|`e ? e1 : e2`
 `x ⟻ expr` | `auto x = expr` 
 `T1 :=: T2` | `is(T1==T2)` 
+`B <: A`   | `is(B:A)`
+`¬e`| `~e`
+`a ∨ b`| `a \| b`
+`a ∧ b`| `a & b`
+`a ⊻ b`| `a ^ b`
+`a ⊼ b`| `~(a&b)`
+`a ⊽ b`| `~(a\|b)`
 `f()→int{ return 42; }` | `int f(){ return 42;}` 
 `x,y:int;` | `int x,y;` 
+`§int‹T›` | `__trait(isIntegral,T)`
+`§fp‹T›` | `__trait(isFloating,T)`
+`§scalar‹T›` | `__trait(isScalar,T)`
+`§unsigned‹T›` | `__trait(isUnsigned,T)`
+`§array‹T›` | `__trait(isStaticArray,T)`
+`a (+) b` | modular a + b for unsigned integers
 
 
 
