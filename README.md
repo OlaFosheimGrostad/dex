@@ -58,4 +58,14 @@ Dex syntax | D syntax
 `a < b ≤ c`   | `a < b && b <= c`
 `a ≤ b < c`   | `a <= b && b < c`
 `a ≤ b ≤ c`   | `a <= b && b <= c`
+`«if»`   | identifier "if"
 
+
+## Todo
+
+Dex Syntax| D syntax
+-----------|----------
+`a and b`| `a && b`
+`a or b` | `a \|\| b`
+`not a`  | `!a`
+`e1 if e else e2`|`e ? e1 : e2`
