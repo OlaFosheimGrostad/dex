@@ -69,3 +69,4 @@ Dex Syntax| D syntax
 `a or b` | `a \|\| b`
 `not a`  | `!a`
 `e1 if e else e2`|`e ? e1 : e2`
+`x ⟻ expr` | `auto x = expr` 
