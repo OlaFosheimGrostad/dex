@@ -65,6 +65,7 @@ Dex syntax | D syntax
 
 Dex Syntax| D syntax
 -----------|----------
+`⟨0,3⟩` | `tuple(0,3)`
 `a · b`| `a * b`
 `a and b`| `a && b`
 `a or b` | `a \|\| b`
