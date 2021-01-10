@@ -40,7 +40,7 @@ Dex syntax | D syntax
 `if … {…}`  | `if (…) {…}`
 `symbol‹…›` | `symbol!(…)`
 `expr1 = expr2` | `expr1 == expr2`
-`expr1 ≠ expr2` | `expr1 == expr2`
+`expr1 ≠ expr2` | `expr1 != expr2`
 `x ⟵ expr` | `x = expr`
 `symbol ≡ type` | `alias symbol = type`
 `obj1 == obj2` | `obj1 is obj2`
