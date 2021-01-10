@@ -2777,7 +2777,7 @@ bool parseCommandLine(const ref Strings arguments, const size_t argc, ref Param 
             {
                 const(char)[] runarg = arguments[i + 1].toDString();
                 const(char)[] ext = FileName.ext(runarg);
-                if (ext && FileName.equals(ext, "d") == 0 && FileName.equals(ext, "di") == 0)
+                if (ext && FileName.equals(ext, "d") == 0 && FileName.equals(ext, "d4") == 0 && FileName.equals(ext, "dex") == 0&& FileName.equals(ext, "di") == 0)
                 {
                     error("-run must be followed by a source file, not '%s'", arguments[i + 1]);
                     break;
@@ -3082,7 +3082,7 @@ version (IN_LLVM) {} else
     /* Examine extension to see if it is a valid
         * D source file extension
         */
-    if (FileName.equals(ext, global.mars_ext) || FileName.equals(ext, global.hdr_ext) || FileName.equals(ext, "dd"))
+    if (FileName.equals(ext, global.mars_ext) || FileName.equals(ext, "d4") || FileName.equals(ext, "dex") || FileName.equals(ext, global.hdr_ext) || FileName.equals(ext, "dd"))
     {
         name = FileName.removeExt(p);
         if (!name.length || name == ".." || name == ".")

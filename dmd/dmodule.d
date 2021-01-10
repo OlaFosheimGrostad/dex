@@ -34,6 +34,7 @@ import dmd.globals;
 import dmd.id;
 import dmd.identifier;
 import dmd.parse;
+import dmd.dex.parse;
 import dmd.root.file;
 import dmd.root.filename;
 import dmd.root.outbuffer;
@@ -548,7 +549,9 @@ extern (C++) final class Module : Package
         }
         else if (!FileName.equalsExt(srcfilename, global.mars_ext) &&
                  !FileName.equalsExt(srcfilename, global.hdr_ext) &&
-                 !FileName.equalsExt(srcfilename, "dd"))
+                 !FileName.equalsExt(srcfilename, "dd") &&
+                 !FileName.equalsExt(srcfilename, "dex")
+                 )
         {
 
             error("source file name '%.*s' must have .%.*s extension",
@@ -1069,6 +1072,14 @@ else
         {
             isHdrFile = true;
         }
+
+        if (FileName.equalsExt(arg, "dex")){
+            scope p = new ParserDex!AST(this, buf, cast(bool) docfile);
+            p.nextToken();
+            members = p.parseModule();
+            md = p.md;
+            numlines = p.scanloc.linnum;
+        } else
         {
             scope p = new Parser!AST(this, buf, cast(bool) docfile);
             p.nextToken();
