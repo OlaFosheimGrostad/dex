@@ -1,51 +1,19 @@
-struct Tuple(){}
-struct Tuple(T0){T0 _0;}
-struct Tuple(T0,T1){T0 _0;T1 _1;}
-struct Tuple(T0,T1,T2){T0 _0;T1 _1;T2 _2;}
+
+struct __Tuple(){}
+
+struct __Tuple(T0){ T0[1] __v; const ref opIndex(size_t i){ return __v[i]; }}
+
+struct __Tuple(T0,T1){
+    static if (is(T0==T1)) { T0[2] __v; const ref opIndex(size_t i){ return __v[i]; } } 
+    else { T0 __0; T1 __1;}
+}
+struct __Tuple(T0,T1,T2){
+    static if (is(T0==T1) && is(T0==T2)) { T0[3] __v; const ref opIndex(size_t i){ return __v[i]; } } 
+    else { T0 __0; T1 __1; T2 __2; }
+}
 
 auto __dex_tuple(Ts...)(Ts args){
     return Tuple!Ts(args); 
-}
-
-void main()
-{
-	import std.stdio;
-    auto t = __dex_tuple("hei","hallo");
-    writeln(t._0,t._1);
-}
-
-
---------
-
-
-struct Tuple(){}
-
-struct Tuple(T0){T0 _0;}
-
-struct Tuple(T0,T1){
-    static if (is(T0==T1)) {
-        T0[2] _values;
-        const ref opIndex(size_t i){
-            return _values[i];
-        }
-    }
-    else 
-    {
-    }
-}
-
-struct Tuple(T0,T1,T2){T0 _0;T1 _1;T2 _2;}
-
-auto __dex_tuple(Ts...)(Ts args){
-    return Tuple!Ts(args); 
-}
-
-auto __dex_get(Ts..., size_t i)(Tuple!Ts t){
-    switch(i){
-        case 0: return t._0;
-        case 1: return t._1;
-        case 2: return t._2;
-    }
 }
 
 void main()
