@@ -5,7 +5,7 @@ Version 0.0.1 gamma. Work in progress.
 Dex is a a compiler with a unicode syntax. 
 
 Goals:
-- Avoid symbolic ambiguitiy. 
+- Avoid symbolic ambiguity. 
 - Allow a level of terseness while improving legibility for experienced programmers.
 - Greater expressiveness.
 - Semantic improvements.
