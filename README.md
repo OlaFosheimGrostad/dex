@@ -28,9 +28,11 @@ void main(){
 }
 ```
 
-## Added Syntactical Sugar
+## Syntax
 
-New Syntax | Regular D
+The syntax currently mimics the regular D syntax with the following changes
+
+Dex syntax | D syntax
 -------------|----------
 `for … {…}`  | `for (…) {…}`
 `foreach … {…}`  | `foreach (…) {…}`
