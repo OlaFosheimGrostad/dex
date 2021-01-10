@@ -1,0 +1,15 @@
+struct Tuple(){}
+struct Tuple(T0){T0 _0;}
+struct Tuple(T0,T1){T0 _0;T1 _1;}
+struct Tuple(T0,T1,T2){T0 _0;T1 _1;T2 _2;}
+
+auto __dex_tuple(Ts...)(Ts args){
+    return Tuple!Ts(args); 
+}
+
+void main()
+{
+	import std.stdio;
+    auto t = __dex_tuple("hei","hallo");
+    writeln(t._0,t._1);
+}
