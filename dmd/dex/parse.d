@@ -1,15 +1,8 @@
-/**
- * Takes a token stream from the lexer, and parses it into an abstract syntax tree.
- *
- * Specification: $(LINK2 https://dlang.org/spec/grammar.html, D Grammar)
- *
- * Copyright:   Copyright (C) 1999-2020 by The D Language Foundation, All Rights Reserved
- * Authors:     $(LINK2 http://www.digitalmars.com, Walter Bright)
- * License:     $(LINK2 http://www.boost.org/LICENSE_1_0.txt, Boost License 1.0)
- * Source:      $(LINK2 https://github.com/dlang/dmd/blob/master/src/dmd/parse.d, _parse.d)
- * Documentation:  https://dlang.org/phobos/dmd_parse.html
- * Coverage:    https://codecov.io/gh/dlang/dmd/src/master/src/dmd/parse.d
- */
+// based on ../parse.d, modified by Ola Fosheim Grøstad, november 2020
+//TODO implment '≠≠' for '!is'
+//TODO implment 'not' for '!'
+//TODO implment 'and' for '&&'
+//TODO implment 'or' for '||'
 
 module dmd.dex.parse;
 
@@ -79,7 +72,7 @@ immutable PREC[TOK.max_] precedence =
     TOK.functionString : PREC.primary,
     TOK.prettyFunction : PREC.primary,
     TOK.typeid_ : PREC.primary,
-    TOK.is_ : PREC.primary,
+    TOK.equal : PREC.primary,
     TOK.assert_ : PREC.primary,
     TOK.halt : PREC.primary,
     TOK.template_ : PREC.primary,
@@ -150,8 +143,8 @@ immutable PREC[TOK.max_] precedence =
     /* Note that we changed precedence, so that < and != have the same
      * precedence. This change is in the parser, too.
      */
-    TOK.equal : PREC.rel,
-    TOK.notEqual : PREC.rel,
+    TOK.assign : PREC.rel,
+    TOK.dex_not_equal : PREC.rel,
     TOK.identity : PREC.rel,
     TOK.notIdentity : PREC.rel,
 
@@ -164,7 +157,7 @@ immutable PREC[TOK.max_] precedence =
 
     TOK.question : PREC.cond,
 
-    TOK.assign : PREC.assign,
+    TOK.dex_assign : PREC.assign,
     TOK.construct : PREC.assign,
     TOK.blit : PREC.assign,
     TOK.addAssign : PREC.assign,
@@ -562,9 +555,9 @@ final class ParserDex(AST) : Lexer
             case TOK.identifier:
                 //todo: PARSE ALIAS NAME BINDING:  identifier ≡ type;  TODO: identifier‹…› ≡ type; 
                 {
-                    if (hasOptionalParensThen(peek(&token), TOK.dpp_define_assign)) {
+                    if (hasOptionalParensThen(peek(&token), TOK.dex_define_assign)) {
                         //printf("DEBUG DECL this is a new style alias expression\n");
-                        a = parseAliasExpression(TOK.dpp_left_tmpl_param, TOK.dpp_right_tmpl_param, TOK.dpp_define_assign);
+                        a = parseAliasExpression(TOK.dex_left_tmpl_param, TOK.dex_right_tmpl_param, TOK.dex_define_assign);
                         if (a && a.dim)
                             *pLastDecl = (*a)[a.dim - 1];
                         break;
@@ -840,7 +833,7 @@ final class ParserDex(AST) : Lexer
                  *      storage_class identifier = initializer;
                  *      storage_class identifier(...) = initializer;
                  */
-                if (token.value == TOK.identifier && hasOptionalParensThen(peek(&token), TOK.assign))
+                if (token.value == TOK.identifier && hasOptionalParensThen(peek(&token), TOK.dex_assign))
                 {
                     a = parseAutoDeclarations(getStorageClass!AST(pAttrs), pAttrs.comment);
                     if (a && a.dim)
@@ -1148,7 +1141,7 @@ final class ParserDex(AST) : Lexer
                 }
             case TOK.debug_:
                 nextToken();
-                if (token.value == TOK.assign)
+                if (token.value == TOK.dex_assign)
                 {
                     nextToken();
                     if (token.value == TOK.identifier)
@@ -1172,7 +1165,7 @@ final class ParserDex(AST) : Lexer
 
             case TOK.version_:
                 nextToken();
-                if (token.value == TOK.assign)
+                if (token.value == TOK.dex_assign)
                 {
                     nextToken();
                     if (token.value == TOK.identifier)
@@ -1270,10 +1263,10 @@ final class ParserDex(AST) : Lexer
             nextToken(); // skip over ident
 
             AST.TemplateParameters* tpl = null;
-            if (token.value == TOK.leftParentheses || token.value == TOK.dpp_left_tmpl_param)
+            if (token.value == TOK.leftParentheses || token.value == TOK.dex_left_tmpl_param)
                 tpl = parseTemplateParameterList();
 
-            check(TOK.assign);   // skip over '='
+            check(TOK.dex_assign);   // skip over '='
             AST.Initializer _init = parseInitializer();
             auto v = new AST.VarDeclaration(loc, null, ident, _init, storageClass);
 
@@ -1295,7 +1288,7 @@ final class ParserDex(AST) : Lexer
 
             case TOK.comma:
                 nextToken();
-                if (!(token.value == TOK.identifier && hasOptionalParensThen(peek(&token), TOK.assign)))
+                if (!(token.value == TOK.identifier && hasOptionalParensThen(peek(&token), TOK.dex_assign)))
                 {
                     error("identifier expected following comma");
                     break;
@@ -1670,8 +1663,8 @@ final class ParserDex(AST) : Lexer
         if (!flag){ 
             if (token.value == TOK.leftParentheses) {
                 assert(endtoken==TOK.rightParentheses);
-            } else if (token.value == TOK.dpp_left_tmpl_param) {
-                endtoken=TOK.dpp_right_tmpl_param;
+            } else if (token.value == TOK.dex_left_tmpl_param) {
+                endtoken=TOK.dex_right_tmpl_param;
             } else {            
                 //printf("TOKEN VALUE %d\n",token.value);
                 error("parenthesized template parameter list expected following template identifier");
@@ -1729,7 +1722,7 @@ final class ParserDex(AST) : Lexer
                             spec = parseCondExp();
                     }
                     RootObject def = null;
-                    if (token.value == TOK.assign) // = Type
+                    if (token.value == TOK.dex_assign) // = Type
                     {
                         nextToken();
                         if (isDeclaration(&token, NeedDeclaratorId.no, TOK.reserved, null))
@@ -1739,7 +1732,7 @@ final class ParserDex(AST) : Lexer
                     }
                     tp = new AST.TemplateAliasParameter(loc, tp_ident, spectype, spec, def);
                 }
-                else if (tv == TOK.colon || tv == TOK.assign || tv == TOK.comma || tv == endtoken)
+                else if (tv == TOK.colon || tv == TOK.dex_assign || tv == TOK.comma || tv == endtoken)
                 {
                     // TypeParameter
                     if (token.value != TOK.identifier)
@@ -1755,7 +1748,7 @@ final class ParserDex(AST) : Lexer
                         nextToken();
                         tp_spectype = parseType();
                     }
-                    if (token.value == TOK.assign) // = Type
+                    if (token.value == TOK.dex_assign) // = Type
                     {
                         nextToken();
                         tp_defaulttype = parseType();
@@ -1791,7 +1784,7 @@ final class ParserDex(AST) : Lexer
                         nextToken();
                         tp_spectype = parseType();
                     }
-                    if (token.value == TOK.assign) // = Type
+                    if (token.value == TOK.dex_assign) // = Type
                     {
                         nextToken();
                         tp_defaulttype = parseType();
@@ -1813,7 +1806,7 @@ final class ParserDex(AST) : Lexer
                         nextToken();
                         tp_specvalue = parseCondExp();
                     }
-                    if (token.value == TOK.assign) // = CondExpression
+                    if (token.value == TOK.dex_assign) // = CondExpression
                     {
                         nextToken();
                         tp_defaultvalue = parseDefaultInitExp();
@@ -1876,7 +1869,7 @@ final class ParserDex(AST) : Lexer
         while (1)
         {
             tiargs = null;
-            if (token.value == TOK.not || token.value == TOK.dpp_left_tmpl_param)
+            if (token.value == TOK.not || token.value == TOK.dex_left_tmpl_param)
             {
                 tiargs = parseTemplateArguments();
             }
@@ -1951,14 +1944,14 @@ final class ParserDex(AST) : Lexer
                 tiargs = parseTemplateSingleArgument();
             }
         } else {
-            assert(token.value == TOK.dpp_left_tmpl_param);
-             tiargs = parseTemplateArgumentList(TOK.dpp_right_tmpl_param);
+            assert(token.value == TOK.dex_left_tmpl_param);
+             tiargs = parseTemplateArgumentList(TOK.dex_right_tmpl_param);
             //printf("parsed ‹›, token.value:%d\n",token.value);
         }
         if (token.value == TOK.not)
         {
             TOK tok = peekNext();
-            if (tok != TOK.is_ && tok != TOK.in_)
+            if (tok != TOK.equal && tok != TOK.in_)
             {
                 error("multiple ! arguments are not allowed");
             Lagain:
@@ -1967,7 +1960,7 @@ final class ParserDex(AST) : Lexer
                     parseTemplateArgumentList();
                 else
                     parseTemplateSingleArgument();
-                if (token.value == TOK.not && (tok = peekNext()) != TOK.is_ && tok != TOK.in_)
+                if (token.value == TOK.not && (tok = peekNext()) != TOK.equal && tok != TOK.in_)
                     goto Lagain;
             }
         }
@@ -1988,7 +1981,7 @@ final class ParserDex(AST) : Lexer
         auto tiargs = new AST.Objects();
         
         assert((token.value == TOK.leftParentheses && endtok == TOK.rightParentheses)
-            || (token.value == TOK.dpp_left_tmpl_param && endtok == TOK.dpp_right_tmpl_param)
+            || (token.value == TOK.dex_left_tmpl_param && endtok == TOK.dex_right_tmpl_param)
             || token.value == TOK.comma);
 
         nextToken();
@@ -2535,7 +2528,7 @@ final class ParserDex(AST) : Lexer
          * which is a constructor template
          */
         AST.TemplateParameters* tpl = null;
-        if ((token.value == TOK.leftParentheses|| token.value == TOK.dpp_left_tmpl_param) && peekPastParen(&token).value == TOK.leftParentheses)
+        if ((token.value == TOK.leftParentheses|| token.value == TOK.dex_left_tmpl_param) && peekPastParen(&token).value == TOK.leftParentheses)
         {
             tpl = parseTemplateParameterList();
         }
@@ -3017,7 +3010,7 @@ final class ParserDex(AST) : Lexer
 
                         at = null; // no type
                         ae = null; // no default argument
-                        if (token.value == TOK.assign) // = defaultArg
+                        if (token.value == TOK.dex_assign) // = defaultArg
                         {
                             nextToken();
                             ae = parseDefaultInitExp();
@@ -3063,7 +3056,7 @@ final class ParserDex(AST) : Lexer
                             at = parseType(&ai);
                         }
                         ae = null;
-                        if (token.value == TOK.assign) // = defaultArg
+                        if (token.value == TOK.dex_assign) // = defaultArg
                         {
                             nextToken();
                             ae = parseDefaultInitExp();
@@ -3187,7 +3180,7 @@ final class ParserDex(AST) : Lexer
                 enum attributeErrorMessage = "`%s` is not a valid attribute for enum members";
                 while(token.value != TOK.rightCurly
                     && token.value != TOK.comma
-                    && token.value != TOK.assign)
+                    && token.value != TOK.dex_assign)
                 {
                     switch(token.value)
                     {
@@ -3216,7 +3209,7 @@ final class ParserDex(AST) : Lexer
                             break;
                         case TOK.identifier:
                             const tv = peekNext();
-                            if (tv == TOK.assign || tv == TOK.comma || tv == TOK.rightCurly)
+                            if (tv == TOK.dex_assign || tv == TOK.comma || tv == TOK.rightCurly)
                             {
                                 ident = token.ident;
                                 type = null;
@@ -3265,7 +3258,7 @@ final class ParserDex(AST) : Lexer
                         error("type only allowed if anonymous enum and no enum type");
                 }
                 AST.Expression value;
-                if (token.value == TOK.assign)
+                if (token.value == TOK.dex_assign)
                 {
                     if (prevTOK == TOK.identifier)
                     {
@@ -3352,7 +3345,7 @@ final class ParserDex(AST) : Lexer
             id = token.ident;
             nextToken();
 
-            if (token.value == TOK.leftParentheses || token.value == TOK.dpp_left_tmpl_param)
+            if (token.value == TOK.leftParentheses || token.value == TOK.dex_left_tmpl_param)
             {
                 // struct/class template declaration.
                 tpl = parseTemplateParameterList();
@@ -3515,7 +3508,7 @@ final class ParserDex(AST) : Lexer
             Identifier id = token.ident;
             AST.Identifiers* a = null;
             nextToken();
-            if (!aliasid && token.value == TOK.assign)
+            if (!aliasid && token.value == TOK.dex_assign)
             {
                 aliasid = id;
                 goto L1;
@@ -3555,7 +3548,7 @@ final class ParserDex(AST) : Lexer
                     Identifier _alias = token.ident;
                     Identifier name;
                     nextToken();
-                    if (token.value == TOK.assign)
+                    if (token.value == TOK.dex_assign)
                     {
                         nextToken();
                         if (token.value != TOK.identifier)
@@ -3782,7 +3775,7 @@ final class ParserDex(AST) : Lexer
             id = token.ident;
             nextToken();
             //printf("identifier!begin token.value: %d\n",token.value);
-            if (token.value == TOK.not || token.value == TOK.dpp_left_tmpl_param)
+            if (token.value == TOK.not || token.value == TOK.dex_left_tmpl_param)
             {
                 // ident!(template_arguments)
                 //printf("identifier!\n");
@@ -3934,7 +3927,7 @@ final class ParserDex(AST) : Lexer
                     const loc = token.loc;
                     Identifier id = token.ident;
                     nextToken();
-                    if (token.value == TOK.not || token.value == TOK.dpp_left_tmpl_param)
+                    if (token.value == TOK.not || token.value == TOK.dex_left_tmpl_param)
                     {
                         auto tempinst = new AST.TemplateInstance(loc, id, parseTemplateArguments());
                         tid.addInst(tempinst);
@@ -4212,7 +4205,7 @@ final class ParserDex(AST) : Lexer
                         continue;
                     }
                 }
-            case TOK.dpp_left_tmpl_param:
+            case TOK.dex_left_tmpl_param:
             case TOK.leftParentheses:
                 {
                     if (tpl)
@@ -4228,7 +4221,7 @@ final class ParserDex(AST) : Lexer
                             // Gather template parameter list
                             *tpl = parseTemplateParameterList();
                         }
-                        else if (tk.value == TOK.assign)
+                        else if (tk.value == TOK.dex_assign)
                         {
                             /* or (...) =,
                              * i.e. a variable template declaration
@@ -4615,7 +4608,7 @@ private AST.Dsymbols* parseAliasExpression(TOK lefttoken, TOK righttoken, TOK as
                             error("identifier expected following comma, not `%s`", token.toChars());
                             break;
                         }
-                        if (peekNext() != TOK.assign && peekNext() != TOK.leftParentheses)
+                        if (peekNext() != TOK.dex_assign && peekNext() != TOK.leftParentheses)
                         {
                             error("`=` expected following identifier");
                             nextToken();
@@ -4685,10 +4678,10 @@ private AST.Dsymbols* parseAliasExpression(TOK lefttoken, TOK righttoken, TOK as
                 /* Look for:
                  *  alias this = identifier;
                  */
-                if (token.value == TOK.this_ && peekNext() == TOK.assign && peekNext2() == TOK.identifier)
+                if (token.value == TOK.this_ && peekNext() == TOK.dex_assign && peekNext2() == TOK.identifier)
                 {
                     check(TOK.this_);
-                    check(TOK.assign);
+                    check(TOK.dex_assign);
                     auto s = new AliasThis(loc, token.ident);
                     nextToken();
                     check(TOK.semicolon);
@@ -4702,7 +4695,7 @@ private AST.Dsymbols* parseAliasExpression(TOK lefttoken, TOK righttoken, TOK as
              *  alias identifier = type;
              *  alias identifier(...) = type;
              */
-            if (token.value == TOK.identifier && hasOptionalParensThen(peek(&token), TOK.assign))
+            if (token.value == TOK.identifier && hasOptionalParensThen(peek(&token), TOK.dex_assign))
             {
                 auto a = new AST.Dsymbols();
                 while (1)
@@ -4710,9 +4703,9 @@ private AST.Dsymbols* parseAliasExpression(TOK lefttoken, TOK righttoken, TOK as
                     auto ident = token.ident;
                     nextToken();
                     AST.TemplateParameters* tpl = null;
-                    if (token.value == TOK.leftParentheses || token.value == TOK.dpp_left_tmpl_param)
+                    if (token.value == TOK.leftParentheses || token.value == TOK.dex_left_tmpl_param)
                         tpl = parseTemplateParameterList();
-                    check(TOK.assign);
+                    check(TOK.dex_assign);
 
                     bool hasParsedAttributes;
                     void parseAttributes()
@@ -4862,7 +4855,7 @@ private AST.Dsymbols* parseAliasExpression(TOK lefttoken, TOK righttoken, TOK as
                             error("identifier expected following comma, not `%s`", token.toChars());
                             break;
                         }
-                        if (peekNext() != TOK.assign && peekNext() != TOK.leftParentheses)
+                        if (peekNext() != TOK.dex_assign && peekNext() != TOK.leftParentheses)
                         {
                             error("`=` expected following identifier");
                             nextToken();
@@ -4946,7 +4939,7 @@ private AST.Dsymbols* parseAliasExpression(TOK lefttoken, TOK righttoken, TOK as
              *  storage_class identifier = initializer;
              *  storage_class identifier(...) = initializer;
              */
-            if ((storage_class || udas) && token.value == TOK.identifier && hasOptionalParensThen(peek(&token), TOK.assign))
+            if ((storage_class || udas) && token.value == TOK.identifier && hasOptionalParensThen(peek(&token), TOK.dex_assign))
             {
                 AST.Dsymbols* a = parseAutoDeclarations(storage_class, comment);
                 if (udas)
@@ -5011,7 +5004,7 @@ private AST.Dsymbols* parseAliasExpression(TOK lefttoken, TOK righttoken, TOK as
             else if (t != tfirst)
                 error("multiple declarations must have the same type, not `%s` and `%s`", tfirst.toChars(), t.toChars());
 
-            bool isThis = (t.ty == AST.Tident && (cast(AST.TypeIdentifier)t).ident == Id.This && token.value == TOK.assign);
+            bool isThis = (t.ty == AST.Tident && (cast(AST.TypeIdentifier)t).ident == Id.This && token.value == TOK.dex_assign);
             if (ident)
                 checkCstyleTypeSyntax(loc, t, alt, ident);
             else if (!isThis && (t != AST.Type.terror))
@@ -5032,7 +5025,7 @@ private AST.Dsymbols* parseAliasExpression(TOK lefttoken, TOK righttoken, TOK as
                 if (udas)
                     error("user-defined attributes not allowed for `%s` declarations", Token.toChars(tok));
 
-                if (token.value == TOK.assign)
+                if (token.value == TOK.dex_assign)
                 {
                     nextToken();
                     _init = parseInitializer();
@@ -5133,7 +5126,7 @@ private AST.Dsymbols* parseAliasExpression(TOK lefttoken, TOK righttoken, TOK as
             else if (ident)
             {
                 AST.Initializer _init = null;
-                if (token.value == TOK.assign)
+                if (token.value == TOK.dex_assign)
                 {
                     nextToken();
                     _init = parseInitializer();
@@ -5836,7 +5829,7 @@ private AST.Dsymbols* parseAliasExpression(TOK lefttoken, TOK righttoken, TOK as
         case TOK.delegate_:
         case TOK.function_:
         case TOK.typeid_:
-        case TOK.is_:
+        case TOK.equal:
         case TOK.leftBracket:
         case TOK.file:
         case TOK.fileFullPath:
@@ -6243,19 +6236,19 @@ private AST.Dsymbols* parseAliasExpression(TOK lefttoken, TOK righttoken, TOK as
                     break;
                 }
                 auto n = peek(&token);
-                if (storageClass != 0 && token.value == TOK.identifier && n.value == TOK.assign)
+                if (storageClass != 0 && token.value == TOK.identifier && n.value == TOK.dex_assign)
                 {
                     Identifier ai = token.ident;
                     AST.Type at = null; // infer parameter type
                     nextToken();
-                    check(TOK.assign);
+                    check(TOK.dex_assign);
                     param = new AST.Parameter(storageClass, at, ai, null, null);
                 }
-                else if (isDeclaration(&token, NeedDeclaratorId.must, TOK.assign, null))
+                else if (isDeclaration(&token, NeedDeclaratorId.must, TOK.dex_assign, null))
                 {
                     Identifier ai;
                     AST.Type at = parseType(&ai);
-                    check(TOK.assign);
+                    check(TOK.dex_assign);
                     param = new AST.Parameter(storageClass, at, ai, null, null);
                 }
                 else if (storageClass != 0)
@@ -6323,7 +6316,7 @@ private AST.Dsymbols* parseAliasExpression(TOK lefttoken, TOK righttoken, TOK as
 
         case TOK.debug_:
             nextToken();
-            if (token.value == TOK.assign)
+            if (token.value == TOK.dex_assign)
             {
                 error("debug conditions can only be declared at module scope");
                 nextToken();
@@ -6335,7 +6328,7 @@ private AST.Dsymbols* parseAliasExpression(TOK lefttoken, TOK righttoken, TOK as
 
         case TOK.version_:
             nextToken();
-            if (token.value == TOK.assign)
+            if (token.value == TOK.dex_assign)
             {
                 error("version conditions can only be declared at module scope");
                 nextToken();
@@ -7254,7 +7247,7 @@ private AST.Dsymbols* parseAliasExpression(TOK lefttoken, TOK righttoken, TOK as
         case TOK.identifier:
         L5:
             t = peek(t);
-            if (t.value == TOK.not || t.value == TOK.dpp_left_tmpl_param)
+            if (t.value == TOK.not || t.value == TOK.dex_left_tmpl_param)
             {
                 goto L4;
             }
@@ -7271,7 +7264,7 @@ private AST.Dsymbols* parseAliasExpression(TOK lefttoken, TOK righttoken, TOK as
                     if (t.value != TOK.identifier)
                         goto Lfalse;
                     t = peek(t);
-                    if (t.value != TOK.not && t.value != TOK.dpp_left_tmpl_param)
+                    if (t.value != TOK.not && t.value != TOK.dex_left_tmpl_param)
                         goto L3;
                 L4:
                     /* Seen a ! or ‹
@@ -7285,7 +7278,7 @@ private AST.Dsymbols* parseAliasExpression(TOK lefttoken, TOK righttoken, TOK as
                     case TOK.identifier:
                         goto L5;
 
-                    case TOK.dpp_left_tmpl_param:
+                    case TOK.dex_left_tmpl_param:
                     case TOK.leftParentheses:
                         if (!skipParens(t, &t))
                             goto Lfalse;
@@ -7418,7 +7411,7 @@ private AST.Dsymbols* parseAliasExpression(TOK lefttoken, TOK righttoken, TOK as
         int parens;
 
         //printf("Parser::isDeclarator() %s\n", t.toChars());
-        if (t.value == TOK.assign)
+        if (t.value == TOK.dex_assign)
             return false;
 
         while (1)
@@ -7556,7 +7549,7 @@ private AST.Dsymbols* parseAliasExpression(TOK lefttoken, TOK righttoken, TOK as
                     }
                     continue;
                 }
-            case TOK.dpp_left_tmpl_param: //TODO: improve syntax check
+            case TOK.dex_left_tmpl_param: //TODO: improve syntax check
             case TOK.leftParentheses:
                 parens = false;
                 if (Token* tk = peekPastParen(t))
@@ -7568,7 +7561,7 @@ private AST.Dsymbols* parseAliasExpression(TOK lefttoken, TOK righttoken, TOK as
                         *haveTpl = 1;
                         t = tk;
                     }
-                    else if (tk.value == TOK.assign)
+                    else if (tk.value == TOK.dex_assign)
                     {
                         if (!haveTpl)
                             return false;
@@ -7607,10 +7600,10 @@ private AST.Dsymbols* parseAliasExpression(TOK lefttoken, TOK righttoken, TOK as
                 continue;
 
             // Valid tokens that follow a declaration
-            case TOK.dpp_right_tmpl_param: //TODO: improve syntax check
+            case TOK.dex_right_tmpl_param: //TODO: improve syntax check
             case TOK.rightParentheses:
             case TOK.rightBracket:
-            case TOK.assign:
+            case TOK.dex_assign:
             case TOK.comma:
             case TOK.dotDotDot:
             case TOK.semicolon:
@@ -7722,7 +7715,7 @@ private AST.Dsymbols* parseAliasExpression(TOK lefttoken, TOK righttoken, TOK as
                     t = peek(t);
                     if (t.value == TOK.identifier)
                         t = peek(t);
-                    if (t.value == TOK.assign)
+                    if (t.value == TOK.dex_assign)
                     {
                         t = peek(t);
                         if (!isExpression(&t))
@@ -7739,7 +7732,7 @@ private AST.Dsymbols* parseAliasExpression(TOK lefttoken, TOK righttoken, TOK as
                     int tmp = false;
                     if (t.value != TOK.dotDotDot && !isDeclarator(&t, &tmp, null, TOK.reserved))
                         return false;
-                    if (t.value == TOK.assign)
+                    if (t.value == TOK.dex_assign)
                     {
                         t = peek(t);
                         if (!isExpression(&t))
@@ -7848,7 +7841,7 @@ private AST.Dsymbols* parseAliasExpression(TOK lefttoken, TOK righttoken, TOK as
      */
     private bool skipParens(Token* t, Token** pt)
     {
-        if (t.value != TOK.leftParentheses && t.value != TOK.dpp_left_tmpl_param)
+        if (t.value != TOK.leftParentheses && t.value != TOK.dex_left_tmpl_param)
             return false;
 
         int parens = 0;
@@ -7857,12 +7850,12 @@ private AST.Dsymbols* parseAliasExpression(TOK lefttoken, TOK righttoken, TOK as
         {
             switch (t.value)
             {
-            case TOK.dpp_left_tmpl_param: //TODO: improve syntax checks
+            case TOK.dex_left_tmpl_param: //TODO: improve syntax checks
             case TOK.leftParentheses:
                 parens++;
                 break;
 
-            case TOK.dpp_right_tmpl_param: //TODO: improve syntax checks
+            case TOK.dex_right_tmpl_param: //TODO: improve syntax checks
             case TOK.rightParentheses:
                 parens--;
                 if (parens < 0)
@@ -7890,7 +7883,7 @@ private AST.Dsymbols* parseAliasExpression(TOK lefttoken, TOK righttoken, TOK as
 
     private bool skipParensIf(Token* t, Token** pt)
     {
-        if (t.value != TOK.leftParentheses && t.value != TOK.dpp_left_tmpl_param) //TODO: add better syntax checking
+        if (t.value != TOK.leftParentheses && t.value != TOK.dex_left_tmpl_param) //TODO: add better syntax checking
         {
             if (pt)
                 *pt = t;
@@ -8073,8 +8066,8 @@ private AST.Dsymbols* parseAliasExpression(TOK lefttoken, TOK righttoken, TOK as
                 id = token.ident;
                 nextToken();
                 TOK save;
-                if ((token.value == TOK.not && (save = peekNext()) != TOK.is_ && save != TOK.in_) 
-                    || token.value == TOK.dpp_left_tmpl_param)
+                if ((token.value == TOK.not && (save = peekNext()) != TOK.equal && save != TOK.in_) 
+                    || token.value == TOK.dex_left_tmpl_param)
                 {
                     // identifier!(template-argument-list)
                     auto tempinst = new AST.TemplateInstance(loc, id, parseTemplateArguments());
@@ -8421,7 +8414,7 @@ private AST.Dsymbols* parseAliasExpression(TOK lefttoken, TOK righttoken, TOK as
                 e = new AST.TraitsExp(loc, ident, args);
                 break;
             }
-        case TOK.is_:
+        case TOK.equal:
             {
                 AST.Type targ;
                 Identifier ident = null;
@@ -8443,11 +8436,11 @@ private AST.Dsymbols* parseAliasExpression(TOK lefttoken, TOK righttoken, TOK as
                         goto Lerr;
                     }
                     targ = parseType(&ident);
-                    if (token.value == TOK.colon || token.value == TOK.equal)
+                    if (token.value == TOK.colon || token.value == TOK.assign)
                     {
                         tok = token.value;
                         nextToken();
-                        if (tok == TOK.equal && (token.value == TOK.struct_ || token.value == TOK.union_
+                        if (tok == TOK.assign && (token.value == TOK.struct_ || token.value == TOK.union_
                             || token.value == TOK.class_ || token.value == TOK.super_ || token.value == TOK.enum_
                             || token.value == TOK.interface_ || token.value == TOK.package_ || token.value == TOK.module_
                             || token.value == TOK.argumentTypes || token.value == TOK.parameters
@@ -8796,7 +8789,7 @@ private AST.Dsymbols* parseAliasExpression(TOK lefttoken, TOK righttoken, TOK as
                         {
                         case TOK.not:
                             tk = peek(tk);
-                            if (tk.value == TOK.is_ || tk.value == TOK.in_) // !is or !in
+                            if (tk.value == TOK.equal || tk.value == TOK.in_) // !is or !in
                                 break;
                             goto case;
 
@@ -8939,8 +8932,8 @@ private AST.Dsymbols* parseAliasExpression(TOK lefttoken, TOK righttoken, TOK as
                     Identifier id = token.ident;
 
                     nextToken();
-                    if ((token.value == TOK.not && peekNext() != TOK.is_ && peekNext() != TOK.in_)
-                        || token.value == TOK.dpp_left_tmpl_param)
+                    if ((token.value == TOK.not && peekNext() != TOK.equal && peekNext() != TOK.in_)
+                        || token.value == TOK.dex_left_tmpl_param)
                     {
                         AST.Objects* tiargs = parseTemplateArguments();
                         e = new AST.DotTemplateInstanceExp(loc, e, id, tiargs);
@@ -9127,14 +9120,14 @@ private AST.Dsymbols* parseAliasExpression(TOK lefttoken, TOK righttoken, TOK as
 
         switch (op)
         {
-        case TOK.equal:
-        case TOK.notEqual:
+        case TOK.assign:
+        case TOK.dex_not_equal:
             nextToken();
             auto e2 = parseShiftExp();
             e = new AST.EqualExp(op, loc, e, e2);
             break;
 
-        case TOK.is_:
+        case TOK.equal:
             op = TOK.identity;
             goto L1;
 
@@ -9151,7 +9144,7 @@ private AST.Dsymbols* parseAliasExpression(TOK lefttoken, TOK righttoken, TOK as
                 e = new AST.NotExp(loc, e);
                 break;
             }
-            if (tv != TOK.is_)
+            if (tv != TOK.equal)
                 break;
             nextToken();
             op = TOK.notIdentity;
@@ -9337,7 +9330,7 @@ private AST.Dsymbols* parseAliasExpression(TOK lefttoken, TOK righttoken, TOK as
         const loc = token.loc;
         switch (token.value)
         {
-        case TOK.assign:
+        case TOK.dex_assign:
             nextToken();
             auto e2 = parseAssignExp();
             e = new AST.AssignExp(loc, e, e2);

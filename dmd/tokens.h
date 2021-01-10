@@ -33,9 +33,9 @@ class Identifier;
  */
 
 #if IN_LLVM
-enum TOK : unsigned char
+enum TOK : uint16_t
 #else
-typedef unsigned char TOK;
+typedef uint16_t TOK;
 enum
 #endif
 {
@@ -188,10 +188,13 @@ enum
         TOKobjc_class_reference,
         TOKvectorarray,
 
-        TOKdpp_define_assign,
-        TOKdpp_left_tmpl_param,
-        TOKdpp_right_tmpl_param,
-        TOKdpp_sqrt,
+        TOKdex_assign,
+        TOKdex_define_assign,
+        TOKdex_not_equal,
+        TOKdex_not_equal_not_equal,
+        TOKdex_left_tmpl_param,
+        TOKdex_right_tmpl_param,
+        TOKdex_sqrt,
         
         TOKMAX
 };
@@ -236,7 +239,7 @@ struct Token
     int isKeyword();
     const char *toChars() const;
 
-    static const char *toChars(unsigned char value);
+    static const char *toChars(TOK value);
 };
 
 #if defined(__GNUC__)

@@ -23,7 +23,7 @@ import dmd.root.outbuffer;
 import dmd.root.rmem;
 import dmd.utf;
 
-enum TOK : ubyte
+enum TOK : ushort
 {
     reserved,
 
@@ -287,11 +287,13 @@ enum TOK : ubyte
 
     objcClassReference,
     vectorArray = 235,
-
-    dpp_define_assign,
-    dpp_left_tmpl_param,
-    dpp_right_tmpl_param,
-    dpp_sqrt,
+    dex_assign,
+    dex_define_assign,
+    dex_not_equal,
+    dex_not_equal_not_equal,
+    dex_left_tmpl_param,
+    dex_right_tmpl_param,
+    dex_sqrt,
     max_,
 }
 
@@ -714,10 +716,13 @@ extern (C++) struct Token
         TOK.objcClassReference: "class",
         TOK.vectorArray: "vectorarray",
 
-        TOK.dpp_define_assign: "≡",
-        TOK.dpp_left_tmpl_param : "‹",
-        TOK.dpp_right_tmpl_param: "›",
-        TOK.dpp_sqrt: "√"
+        TOK.dex_assign: "⟵",
+        TOK.dex_define_assign: "≡",
+        TOK.dex_not_equal: "≠",
+        TOK.dex_not_equal_not_equal: "≠≠",
+        TOK.dex_left_tmpl_param : "‹",
+        TOK.dex_right_tmpl_param: "›",
+        TOK.dex_sqrt: "√"
     ];
 
     static assert(() {
@@ -912,12 +917,12 @@ nothrow:
         return p;
     }
 
-    static const(char)* toChars(ubyte value)
+    static const(char)* toChars(TOK value)
     {
         return toString(value).ptr;
     }
 
-    extern (D) static string toString(ubyte value) pure nothrow @nogc @safe
+    extern (D) static string toString(TOK value) pure nothrow @nogc @safe
     {
         return tochars[value];
     }

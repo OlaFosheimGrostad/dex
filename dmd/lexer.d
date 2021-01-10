@@ -1063,13 +1063,18 @@ class Lexer
 
             case '\xe2':
                 if (*(p+1) == '\x9f' && *(p+2) == '\xb5') { 
-                    t.value = TOK.assign; // ⟵
+                    t.value = TOK.dex_assign; // ⟵
                 } else if (*(p+1) == '\x89') {
                     if (*(p+2) == '\xa0') {
-                        t.value = TOK.notEqual; // ≠
+                        //TODO: BUG? require 6 trailing '\x00' sentinels?
+                        if (*(p+3) == '\xe2' && *(p+4) == '\x89'  && *(p+5) == '\xa0') { // ≠≠
+                            t.value = TOK.dex_not_equal_not_equal;
+                            p+=6;
+                            return;
+                        } else t.value = TOK.dex_not_equal; // ≠
                     } else if (*(p+2) == '\xa1') {
                         //printf("DEBUG TOK.aliasAssign\n");
-                        t.value = TOK.dpp_define_assign; // ≡
+                        t.value = TOK.dex_define_assign; // ≡
                     } else if (*(p+2) == '\xa4') {
                         t.value = TOK.lessOrEqual; // ≤
                     } else if (*(p+2) == '\xa5') {
@@ -1077,13 +1082,13 @@ class Lexer
                     }
                 } else if (*(p+1) == '\x88') {
                     if (*(p+2) == '\x9a') {
-                        t.value = TOK.dpp_sqrt; // √
+                        t.value = TOK.dex_sqrt; // √
                     }
                 } else if (*(p+1) == '\x80') {
                     if (*(p+2) == '\xb9') {
-                        t.value = TOK.dpp_left_tmpl_param; // ‹
+                        t.value = TOK.dex_left_tmpl_param; // ‹
                     } else if (*(p+2) == '\xba') {
-                        t.value = TOK.dpp_right_tmpl_param; // ›
+                        t.value = TOK.dex_right_tmpl_param; // ›
                     }
                 }
                 p += 3;
@@ -1144,11 +1149,11 @@ class Lexer
             //tk.print();
             switch (tk.value)
             {
-            case TOK.dpp_left_tmpl_param: //TODO: detect more syntax errors by separating
+            case TOK.dex_left_tmpl_param: //TODO: detect more syntax errors by separating
             case TOK.leftParentheses:
                 parens++;
                 continue;
-            case TOK.dpp_right_tmpl_param:
+            case TOK.dex_right_tmpl_param:
             case TOK.rightParentheses:
                 --parens;
                 if (parens)
