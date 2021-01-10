@@ -71,7 +71,9 @@ Dex Syntax| D syntax
 `not a`  | `!a`
 `e1 if e else e2`|`e ? e1 : e2`
 `x ⟻ expr` | `auto x = expr` 
+`T1 :=: T2` | `is(T1==T2)` 
 `f()→int{ return 42; }` | `int f(){ return 42;}` 
 `x,y:int;` | `int x,y;` 
+
 
 
