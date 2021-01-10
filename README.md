@@ -2,15 +2,17 @@
 
 Version 0.0.1 gamma. Work in progress.
 
-The Dex compiler currently accepts [D](http://dlang.org/) source files (`sourcefile.d`) with language extensions.  It will later accept a [stricter syntax](STRICTMODE.md) that allows the use of `=`for equality comparisons.
+Dex is a a compiler with a unicode syntax. The goal is to avoid ambguitiy, make the source code terse, but easy to grasp for an experienced programmer.
 
-Dex is based on [LDC](https://wiki.dlang.org/LDC).
+The Dex compiler currently accepts regular [D](http://dlang.org/) source files (`sourcefile.d`) and an additional new unicode syntax Dex sourcefiles (`sourcefile.dex`).
+
+Dex is based on [LDC](https://wiki.dlang.org/LDC) and currently has the same semantics.
 
 ## Building
 
 Requires CMake, Clang, LLVM 11 and a D compiler.
 
-## Extended-D Code Example
+## Dex Code Example
 
 ```
 import std.stdio, std.conv;
@@ -37,6 +39,8 @@ New Syntax | Regular D
 `symbol‹…›` | `symbol!(…)`
 `x ⟵ expr` | `x = expr`
 `symbol ≡ type` | `alias symbol = type`
+`obj1 == obj2` | `obj1 is obj2`
+`obj1 ≠≠ obj2` | `obj1 !is obj2`
 `x ≤ y` | `x <= y`
 `x ≥ y` | `x >= y`
 `x ≠ y` | `x != y`
