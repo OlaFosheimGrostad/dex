@@ -293,6 +293,8 @@ enum TOK : ushort
     dex_not_equal_not_equal,
     dex_left_tmpl_param,
     dex_right_tmpl_param,
+    dex_left_tuple,
+    dex_right_tuple,
     dex_sqrt,
     max_,
 }
@@ -722,6 +724,8 @@ extern (C++) struct Token
         TOK.dex_not_equal_not_equal: "≠≠",
         TOK.dex_left_tmpl_param : "‹",
         TOK.dex_right_tmpl_param: "›",
+        TOK.dex_left_tuple: "⟨",
+        TOK.dex_right_tuple: "⟩",
         TOK.dex_sqrt: "√"
     ];
 

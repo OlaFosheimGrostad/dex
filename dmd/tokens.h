@@ -194,6 +194,8 @@ enum
         TOKdex_not_equal_not_equal,
         TOKdex_left_tmpl_param,
         TOKdex_right_tmpl_param,
+        TOKdex_left_tuple,
+        TOKdex_right_tuple,
         TOKdex_sqrt,
         
         TOKMAX

@@ -1090,6 +1090,12 @@ class Lexer
                     } else if (*(p+2) == '\xba') {
                         t.value = TOK.dex_right_tmpl_param; // ›
                     }
+                } else if (*(p+1) == '\x9f') {
+                    if (*(p+2) == '\xa8') {
+                        t.value = TOK.dex_left_tuple; // ⟨
+                    } else if (*(p+2) == '\xa9') {
+                        t.value = TOK.dex_right_tuple; // ⟩
+                    }
                 }
                 p += 3;
                 return;

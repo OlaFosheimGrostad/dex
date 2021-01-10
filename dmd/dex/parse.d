@@ -1951,7 +1951,8 @@ final class ParserDex(AST) : Lexer
         if (token.value == TOK.not)
         {
             TOK tok = peekNext();
-            if (tok != TOK.equal && tok != TOK.in_)
+            //TODO: test if the following test should be commented out or not
+            if (/*tok != TOK.equal && */tok != TOK.in_)
             {
                 error("multiple ! arguments are not allowed");
             Lagain:
@@ -1960,7 +1961,7 @@ final class ParserDex(AST) : Lexer
                     parseTemplateArgumentList();
                 else
                     parseTemplateSingleArgument();
-                if (token.value == TOK.not && (tok = peekNext()) != TOK.equal && tok != TOK.in_)
+                if (token.value == TOK.not && (tok = peekNext()) != TOK.equal && tok != TOK.is_ && tok != TOK.in_) //TODO: should TOK.is_ or TOK.equal or none of them be in this test?
                     goto Lagain;
             }
         }
@@ -5829,7 +5830,7 @@ private AST.Dsymbols* parseAliasExpression(TOK lefttoken, TOK righttoken, TOK as
         case TOK.delegate_:
         case TOK.function_:
         case TOK.typeid_:
-        case TOK.equal:
+        case TOK.is_:
         case TOK.leftBracket:
         case TOK.file:
         case TOK.fileFullPath:
@@ -8066,7 +8067,7 @@ private AST.Dsymbols* parseAliasExpression(TOK lefttoken, TOK righttoken, TOK as
                 id = token.ident;
                 nextToken();
                 TOK save;
-                if ((token.value == TOK.not && (save = peekNext()) != TOK.equal && save != TOK.in_) 
+                if ((token.value == TOK.not && (save = peekNext()) != TOK.is_ && save != TOK.in_) 
                     || token.value == TOK.dex_left_tmpl_param)
                 {
                     // identifier!(template-argument-list)
@@ -8414,7 +8415,7 @@ private AST.Dsymbols* parseAliasExpression(TOK lefttoken, TOK righttoken, TOK as
                 e = new AST.TraitsExp(loc, ident, args);
                 break;
             }
-        case TOK.equal:
+        case TOK.is_:
             {
                 AST.Type targ;
                 Identifier ident = null;
@@ -8789,7 +8790,7 @@ private AST.Dsymbols* parseAliasExpression(TOK lefttoken, TOK righttoken, TOK as
                         {
                         case TOK.not:
                             tk = peek(tk);
-                            if (tk.value == TOK.equal || tk.value == TOK.in_) // !is or !in
+                            if (tk.value == TOK.is_ || tk.value == TOK.in_) // !is or !in
                                 break;
                             goto case;
 
@@ -8932,7 +8933,7 @@ private AST.Dsymbols* parseAliasExpression(TOK lefttoken, TOK righttoken, TOK as
                     Identifier id = token.ident;
 
                     nextToken();
-                    if ((token.value == TOK.not && peekNext() != TOK.equal && peekNext() != TOK.in_)
+                    if ((token.value == TOK.not && peekNext() != TOK.is_ && peekNext() != TOK.in_)
                         || token.value == TOK.dex_left_tmpl_param)
                     {
                         AST.Objects* tiargs = parseTemplateArguments();
@@ -9131,6 +9132,10 @@ private AST.Dsymbols* parseAliasExpression(TOK lefttoken, TOK righttoken, TOK as
             op = TOK.identity;
             goto L1;
 
+        case TOK.dex_not_equal_not_equal:
+            op = TOK.notIdentity;
+            goto L1;
+
         case TOK.not:
         {
             // Attempt to identify '!is'
@@ -9144,11 +9149,12 @@ private AST.Dsymbols* parseAliasExpression(TOK lefttoken, TOK righttoken, TOK as
                 e = new AST.NotExp(loc, e);
                 break;
             }
-            if (tv != TOK.equal)
-                break;
-            nextToken();
-            op = TOK.notIdentity;
-            goto L1;
+            break;
+            // if (tv != TOK.equal)
+            //     break;
+            // nextToken();
+            // op = TOK.notIdentity;
+            // goto L1;
         }
         L1:
             nextToken();
