@@ -2,7 +2,7 @@
 
 Version 0.0.1 gamma. Work in progress.
 
-Dex is a a compiler with a unicode syntax. The goal is to avoid ambguitiy, make the source code terse, but easy to grasp for the experienced programmer.
+Dex is a a compiler with a unicode syntax. The goal is to avoid symbolic ambiguitiy, make the source code terse, but easy to grasp for the experienced programmer.
 
 Dex source code uses the `.dex` file extension. The compiler allows you to mix regular [D](http://dlang.org/) source files with `.d` with Dex source code.
 
