@@ -61,7 +61,7 @@ Dex syntax | D syntax
 `«if»`   | identifier "if"
 
 
-## Todo
+## Under Consideration (Todo)
 
 Dex Syntax| D syntax
 -----------|----------
