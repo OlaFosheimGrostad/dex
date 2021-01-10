@@ -1,10 +1,10 @@
-
 struct __Tuple(){}
 
 struct __Tuple(T0){ T0[1] __v; const ref opIndex(size_t i){ return __v[i]; }}
 
 struct __Tuple(T0,T1){
-    static if (is(T0==T1)) { T0[2] __v; const ref opIndex(size_t i){ return __v[i]; } } 
+    static if (is(T0==T1)) { T0[2] __v; this(T0 a, T1 b){__v[0]=a; __v[1]=b; }
+                            const ref opIndex(size_t i){ return __v[i]; } } 
     else { T0 __0; T1 __1;}
 }
 struct __Tuple(T0,T1,T2){
@@ -13,12 +13,12 @@ struct __Tuple(T0,T1,T2){
 }
 
 auto __dex_tuple(Ts...)(Ts args){
-    return Tuple!Ts(args); 
+    return __Tuple!Ts(args); 
 }
 
 void main()
 {
 	import std.stdio;
-    auto t = __dex_tuple("hei",3);
+    auto t = __dex_tuple("hei","hopp");
     writeln(t[0],t[1]);
 }
