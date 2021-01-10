@@ -1,4 +1,4 @@
-# Dex - an experimental compiler with D extensions
+# Dex - an experimental compiler
 
 Version 0.0.1 gamma. Work in progress.
 
