@@ -27,7 +27,7 @@ print ≡ writeln;
 void main(){
    for int i⟵0; i ≤ 100; i++ {
       if 3 < i ≤ 10 {
-        string s⟵to‹string›(i);
+        auto s ⟵ to‹string›(i);
         print(s);
       }
    }
