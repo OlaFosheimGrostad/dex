@@ -49,11 +49,12 @@ Dex syntax | D syntax
 `expr1 ≠ expr2` | `expr1 != expr2`
 `x ⟵ expr` | `x = expr`
 `symbol ≡ type` | `alias symbol = type`
+`x = y` | `x == y`
+`x ≠ y` | `x != y`
 `obj1 == obj2` | `obj1 is obj2`
 `obj1 ≠≠ obj2` | `obj1 !is obj2`
 `x ≤ y` | `x <= y`
 `x ≥ y` | `x >= y`
-`x ≠ y` | `x != y`
 `a < b < c`   | `a < b && b < c`
 `a < b ≤ c`   | `a < b && b <= c`
 `a ≤ b < c`   | `a <= b && b < c`
